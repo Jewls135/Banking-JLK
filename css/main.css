@@ -4,10 +4,11 @@
 
 }
 
-html {
-    
+p { /* Default text for all p elements */
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-size: 16px;
+    line-height: 1.2;
 }
-
 
 
 

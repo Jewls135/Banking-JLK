@@ -1,6 +1,13 @@
-/* Main CSS File, only use for default decoration of default elements, specific styles will be in their own seperate file.*/
+/* Main CSS File, only use for default decoration of default elements like p, h1, li, etc.., specific styles will be in their own seperate file. */
 
-:root { /* Use variables for colors so it's easier to re-use */
+:root { /* Use variables for colors so they're easier to re-use */
 
 }
+
+html {
+    
+}
+
+
+
 

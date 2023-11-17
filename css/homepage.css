@@ -1,6 +1,6 @@
 /* CSS File used for index.html */
 :root {
-    --lightBlack: rgba(0, 0, 0, 0.3);
+    --lightBlack: rgba(0, 0, 0, 0.45);
 }
 .mainlogo img {
     position: absolute;
@@ -14,9 +14,9 @@
 #continueButton{
     position: absolute;
     bottom: 10%;
-    width: 40%;
+    width: 30%;
     height: 10%;
-    right: 30%;
+    right: 35%;
     background-color: white;
     border: none;
 }
@@ -63,9 +63,27 @@ input {
 }
 
 .submit {
+    position: absolute;
+    font-family:'Times New Roman', Times, serif;
+    border: solid 1px var(--lightBlack);
+    color: var(--lightBlack);
+    font-size: 1.5em;
+    background-color: white;
+    text-indent: 2%;
     width: 20%;
     right: 40%;
     top: 84.9999999999%;
+    transition-duration: .1s;
+}
+
+.submit:hover {
+    border: solid 1px rgba(0, 0, 0, 0.6);
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.submit:active {
+    border: solid 1px black;
+    color:black;
 }
 
 .loginheader {

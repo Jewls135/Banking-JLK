@@ -6,8 +6,17 @@
 
 p { /* Default text for all p elements */
     font-family:Georgia, 'Times New Roman', Times, serif;
-    font-size: 16px;
+    font-size: 1.1em;
     line-height: 1.2;
+}
+
+input {
+    background-color: white;
+    border: solid 1px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+    font-family:Georgia, 'Times New Roman', Times, serif;
 }
 
 

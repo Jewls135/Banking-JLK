@@ -36,6 +36,7 @@
 
 .loginform {
     border: solid 1px var(--lightBlack);
+    border-radius: 2%;
     position: absolute;
     width: 30%;
     height: 66%;

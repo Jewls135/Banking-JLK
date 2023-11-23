@@ -13,6 +13,7 @@ p { /* Default text for all p elements */
 input {
     background-color: white;
     border: solid 1px rgba(0, 0, 0, 0.3);
+    
 }
 
 h1 {

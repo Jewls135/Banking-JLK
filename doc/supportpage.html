@@ -14,11 +14,11 @@
         allowing our team to update and resolve the issue.">
     </head>
     <body>
-        <div class="header">
+        <div class="header-container">
             <h1>JLK Banking</h1>
-        </div>
-        <div class="sign">
-            <h2>Sign In</h2>
+            <div class="sign">
+                <h2>Sign In</h2>
+            </div>
         </div>
         <div class="navbar">
             <a href="homepage.html">Home</a>
@@ -26,9 +26,30 @@
             <a href="transferdeposit.html">Transfer/Deposit</a>
             <a href="supportpage.html">Support</a>
         </div>
-        <div class="Support">
-            <h2>Customer Support</h2>
+        <div class="main-content">
+            <div class="Support">
+                <h2>Customer Support</h2>
+                <p>For any issues that may arise while using the JLK banking website, please submit a ticket below.</p>
+                <!-- Form for submitting tickets -->
+                <form>
+                    <!-- Subject -->
+                    <label for="subject">Subject</label>
+                    <br>
+                    <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                    <br>
+                    <!-- Message -->
+                    <label for="message">Message</label>
+                    <br>
+                    <textarea id="message" name="message" placeholder="Write something.." style="height:200px" required></textarea>
+                    <br>
+                    <!-- Submit -->
+                    <input type="submit" id="submit" value="Submit">
+                </form>
+                <!-- Contact Us -->
+                <h2>Contact Us</h2>
+            </div>
         </div>
+        <!-- Linking javascript -->
         <script src = "../js/supportpage.js"></script>
     </body>
 </html>

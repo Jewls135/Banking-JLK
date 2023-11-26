@@ -19,6 +19,20 @@ input {
 h1 {
     font-family:Georgia, 'Times New Roman', Times, serif;
 }
-
-
-
+/* Header */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+}
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: center;
+}
+/* Main Content */
+.main-content {
+    margin: auto;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+}

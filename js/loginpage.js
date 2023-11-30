@@ -26,8 +26,27 @@ $("#signup-button").click(function () {
     $(".signup-form").show();
 });
 
-$("#google-button").click(function () {
-
+// Google Sign in
+$('#google-button').click(function () {
+    var provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth()
+        .signInWithPopup(provider)
+        .then((result) => {
+            // The signed-in user info.
+            var user = result.user;
+            console.log(user, "sign in via google");
+            // IdP data available in result.additionalUserInfo.profile.
+            // ...
+        }).catch((error) => {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+        });
 });
 
 // Submit clicks below
@@ -88,27 +107,3 @@ $("#signupSubmit").submit(function (e) {
             console.log(errorMessage);
         });
 });
-
-// Google Sign In button
-$('#google-button').click(function () {
-    var provider = new firebase.auth.GoogleAuthProvider();
-
-    firebase.auth()
-        .signInWithPopup(provider)
-        .then((result) => {
-            // The signed-in user info.
-            var user = result.user;
-            console.log(user, "sign in via google");
-            // IdP data available in result.additionalUserInfo.profile.
-            // ...
-        }).catch((error) => {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // The email of the user's account used.
-            var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
-            // ...
-        });
-})

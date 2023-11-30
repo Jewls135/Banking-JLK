@@ -13,30 +13,25 @@
     </head>
 
     <body>
-        <div class = mainlogo>
-            <img src="../img/JLK logo.png" alt="ERROR_IMAGE_WONT_LOAD">
-        </div>
-        <!-- Additional divs in here-->
-
-        <div class = "continue">
-            <button id = "continueButton"><h1>Click to Continue</h1></button>
+        <div class="header-container box-shadow">
+            <h1>Login Page</h1>
+            <a href="homepage.html" class = "sign">Back to homepage</a>
         </div>
 
-        <div class = "loginform box-shadow">
-            <h1 class = "loginheader">Sign In</h1>
-            <h2 class = "inputHeader" id ="emailHeader">Email: <br>
-                <input class = "email" type="email" required= "true">
-            </h2>
-            
-            <h2 class = "inputHeader" id ="passwordHeader">Password: <br>
-                <input class = "password" type="password" required = "true">
-            </h2>
-            <button class = "submit">Enter</button>
-
-            <h2 class = "inputHeader" id ="signUp">Click here to sign up</h2>
+        <div class="main-content box-shadow">
+            <div class = "button-container">
+                <input type="button" value = "Log In" class = "input-button box-shadow">
+                <input type="button" value = "Sign Up" class = "input-button box-shadow">
+                <input type="button" value = "Google Sign In" class = "input-button box-shadow">
+            </div>
         </div>
-       
-        <div class = "footer"></div>
+
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+	    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-compat.js"></script>
+	    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore-compat.js"></script>
+	    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-auth-compat.js"></script>
+
+        <!-- Linking javascript -->
         <script src = "../js/loginpage.js"></script>
     </body>
 </html>

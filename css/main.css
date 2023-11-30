@@ -18,6 +18,11 @@ h1 {
     font-family:Georgia, 'Times New Roman', Times, serif;
 }
 
+input {
+    background-color: white;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
 /* Header */
 .header-container {
     display: flex;
@@ -37,6 +42,15 @@ h1 {
     text-decoration: none;
     color: black; 
     font-size: 1.5em;
+    transition: .1s;
+}
+
+.sign:hover {
+    color: rgba(0, 0, 0, 0.479);
+}
+
+.sign:active {
+    color:black
 }
 
 /* Navbar */

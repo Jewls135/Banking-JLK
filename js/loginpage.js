@@ -90,7 +90,7 @@ $("#signupSubmit").submit(function (e) {
 });
 
 // Google Sign In button
-$('#google').click(function () {
+$('#google-button').click(function () {
     var provider = new firebase.auth.GoogleAuthProvider();
 
     firebase.auth()

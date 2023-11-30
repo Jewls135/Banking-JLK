@@ -8,11 +8,13 @@ const firebaseConfig = {
     measurementId: "G-C0HD55FR3R"
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
 
-$(".login-form").hide();
-$(".signup-form").hide();
+$(document).ready(function() {
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    $(".login-form").hide();
+    $(".signup-form").hide();
+});
 
 
 // Click events below

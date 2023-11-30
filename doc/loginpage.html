@@ -19,11 +19,25 @@
         </div>
 
         <div class="main-content box-shadow">
+        
             <div class = "button-container">
-                <input type="button" value = "Log In" class = "input-button box-shadow">
-                <input type="button" value = "Sign Up" class = "input-button box-shadow">
-                <input type="button" value = "Google Sign In" class = "input-button box-shadow">
+                <input type="button" value = "Log In" class = "input-button box-shadow" id ="login-button">
+                <input type="button" value = "Sign Up" class = "input-button box-shadow" id ="signup-button">
+                <input type="button" value = "Google Sign In" class = "input-button box-shadow" id ="google-button">
             </div>
+
+            <div class = "login-form">
+                <input type="email" id = "loginEmail" class = "input-text" placeholder="Email">
+                <input type="password" id ="loginPassword" class = "input-text" placeholder="Password">
+                <input type="button" value = "Submit / Login" class = "input-button" id = "loginSubmit">
+            </div>
+
+            <div class = "signup-form">
+                <input type="email" id = "signupEmail" class = "input-text" placeholder="Email">
+                <input type="password" id = "signupPassword" class = "input-text" placeholder="Password">
+                <input type="button" value = "Submit / Signup" class = "input-button" id = "signupSubmit">
+            </div>
+
         </div>
 
         <!-- The core Firebase JS SDK is always required and must be listed first -->

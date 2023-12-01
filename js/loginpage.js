@@ -54,7 +54,7 @@ $('#google-button').click(function () {
 // Submit clicks below
 
 // Login submit button
-$('#loginSubmit').submit(function (e) {
+$('#loginSubmit').click(function (e) {
     e.preventDefault();
     // Getting email/password from the inputs
     var email = $('#loginEmail').val();
@@ -83,7 +83,7 @@ $('#loginSubmit').submit(function (e) {
 });
 
 // Signup submit button
-$("#signupSubmit").submit(function (e) {
+$("#signupSubmit").click(function (e) {
     e.preventDefault();
     // Getting email/password from the inputs
     var email = $('#signupEmail').val();

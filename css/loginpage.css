@@ -1,7 +1,7 @@
 /* CSS File used for index.html */
 .main-content {
-    margin-top: 20vh;
-    width: 60%;
+    margin-top: 25vh;
+    width: 40%;
 }
 
 .button-container {
@@ -42,8 +42,8 @@
     display: block;
     height: 50px;
     width: 100%;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 60px;
+    margin-bottom: 60px;
     font-size: 1.5em;
     transition: background-color 0.1s ease;
 }

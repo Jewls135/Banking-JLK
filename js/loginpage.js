@@ -8,14 +8,12 @@ const firebaseConfig = {
     measurementId: "G-C0HD55FR3R"
 };
 
-
 $(document).ready(function() {
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     $(".login-form").hide();
     $(".signup-form").hide();
 });
-
 
 // Click events below
 $("#login-button").click(function () {
@@ -49,9 +47,7 @@ $('#google-button').click(function () {
             var credential = error.credential;
             // ...
         });
-});
-
-// Submit clicks below
+}); // Submit clicks below
 
 // Login submit button
 $('#loginSubmit').click(function (e) {

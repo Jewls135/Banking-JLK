@@ -8,6 +8,11 @@ body {
     margin:.5%;
 }
 
+html {
+    background-color: rgb(235, 234, 234);
+    background-image: url(../img//JLK\ logo\ \(1\).png);
+}
+
 p { /* Default text for all p elements */
     font-family:Georgia, 'Times New Roman', Times, serif;
     font-size: 1.1em;
@@ -30,6 +35,7 @@ input {
     align-items: center;
     border: 1px solid black;
     border-radius: 5px;
+    background-color: white;
     
 }
 
@@ -63,6 +69,7 @@ input {
     border: 1px solid black;
     border-radius: 5px;
     padding: 5px;
+    background-color: white;
 }
 
 .navbar a {
@@ -84,6 +91,7 @@ input {
     border: 1px solid black;
     border-radius: 5px;
     padding: 5px;
+    background-color: white;
 }
 
 /* Additional styling classes below (non-specific styles eg. box-shadow)*/

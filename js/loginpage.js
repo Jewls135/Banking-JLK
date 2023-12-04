@@ -15,9 +15,13 @@ $(document).ready(function() {
     $(".login-form").hide();
     $(".signup-form").hide();
 
+    var currentuser = "";
+    var currentemail = "";
     firebase.auth().onAuthStateChanged(function(user) { // Checking if user is logged in, this will work on any of our pages with the correct database
         if (user) {
           // User is signed in
+          currentuser = user;
+          currentemail = user.email;
           console.log("User is logged in");
           console.log("User ID: " + user.uid);
           console.log("User Email: " + user.email);
@@ -44,25 +48,22 @@ $("#signup-button").click(function () {
 $('#google-button').click(function () {
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth()
-    .setPersistence(firebase.auth.Auth.Persistence.SESSION)
-        .then(() => {
-            firebase.auth().signInWithPopup(provider)
-        })
-        .then((result) => {
-            // The signed-in user info.
-            var user = result.user;
-            console.log(user, "sign in via google");
-            // IdP data available in result.additionalUserInfo.profile.
-            // ...
-        }).catch((error) => {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // The email of the user's account used.
-            var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
-            // ...
+    .signInWithPopup(provider)
+    .then((result) => {
+         // The signed-in user info.
+        var user = result.user;
+        console.log(user, "sign in via google");
+        // IdP data available in result.additionalUserInfo.profile.
+        // ...
+    }).catch((error) => {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
         });
 });
 
@@ -75,10 +76,7 @@ $('#loginSubmit').click(function (e) {
 
     firebase
         .auth()
-        .setPersistence(firebase.auth.Auth.Persistence.SESSION)
-        .then(() => {
-            return firebase.auth().signInWithEmailAndPassword(email, password)
-        })
+        .signInWithEmailAndPassword(email, password)
         .then((success) => {
             // Signed in
             console.log('login in');
@@ -108,10 +106,7 @@ $("#signupSubmit").click(function (e) {
     // create a user with email address and password
     firebase
         .auth()
-        .setPersistence(firebase.auth.Auth.Persistence.SESSION) // Set local persistence
-        .then(() => {
-            return firebase.auth().createUserWithEmailAndPassword(email, password);
-        })
+        .createUserWithEmailAndPassword(email, password)
         .then((result) => {
             // Signed in
             let user = result.user;

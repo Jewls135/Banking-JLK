@@ -1,3 +1,4 @@
+
 const firebaseConfig = {
     apiKey: "AIzaSyBRzL4hYESxYOmG6qBchI2hRGi4XI3rX-A",
     authDomain: "banking-jlk.firebaseapp.com",
@@ -13,6 +14,19 @@ $(document).ready(function() {
     firebase.initializeApp(firebaseConfig);
     $(".login-form").hide();
     $(".signup-form").hide();
+
+    firebase.auth().onAuthStateChanged(function(user) { // Checking if user is logged in, this will work on any of our pages with the correct database
+        if (user) {
+          // User is signed in
+          console.log("User is logged in");
+          console.log("User ID: " + user.uid);
+          console.log("User Email: " + user.email);
+          // Additional user information can be accessed through the 'user' object
+        } else {
+          // No user is signed in
+          console.log("User is not logged in");
+        }
+      });
 });
 
 // Click events below
@@ -30,7 +44,10 @@ $("#signup-button").click(function () {
 $('#google-button').click(function () {
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth()
-        .signInWithPopup(provider)
+    .setPersistence(firebase.auth.Auth.Persistence.SESSION)
+        .then(() => {
+            firebase.auth().signInWithPopup(provider)
+        })
         .then((result) => {
             // The signed-in user info.
             var user = result.user;
@@ -47,7 +64,7 @@ $('#google-button').click(function () {
             var credential = error.credential;
             // ...
         });
-}); // Submit clicks below
+});
 
 // Login submit button
 $('#loginSubmit').click(function (e) {
@@ -58,7 +75,10 @@ $('#loginSubmit').click(function (e) {
 
     firebase
         .auth()
-        .signInWithEmailAndPassword(email, password)
+        .setPersistence(firebase.auth.Auth.Persistence.SESSION)
+        .then(() => {
+            return firebase.auth().signInWithEmailAndPassword(email, password)
+        })
         .then((success) => {
             // Signed in
             console.log('login in');
@@ -88,7 +108,10 @@ $("#signupSubmit").click(function (e) {
     // create a user with email address and password
     firebase
         .auth()
-        .createUserWithEmailAndPassword(email, password)
+        .setPersistence(firebase.auth.Auth.Persistence.SESSION) // Set local persistence
+        .then(() => {
+            return firebase.auth().createUserWithEmailAndPassword(email, password);
+        })
         .then((result) => {
             // Signed in
             let user = result.user;

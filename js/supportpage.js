@@ -1,0 +1,1 @@
+/* Supportpage Javascript */

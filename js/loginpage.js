@@ -9,28 +9,22 @@ const firebaseConfig = {
     measurementId: "G-C0HD55FR3R"
 };
 
-$(document).ready(function() {
+$(document).ready(function () {
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     $(".login-form").hide();
     $(".signup-form").hide();
 
-    var currentuser = "";
-    var currentemail = "";
-    firebase.auth().onAuthStateChanged(function(user) { // Checking if user is logged in, this will work on any of our pages with the correct database
-        if (user) {
-          // User is signed in
-          currentuser = user;
-          currentemail = user.email;
-          console.log("User is logged in");
-          console.log("User ID: " + user.uid);
-          console.log("User Email: " + user.email);
-          // Additional user information can be accessed through the 'user' object
-        } else {
-          // No user is signed in
-          console.log("User is not logged in");
-        }
-      });
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {  // If user is logged in, redirect to homepage
+            // User is signed in
+            currentuser = user;
+            currentemail = user.email;
+            console.log("User is logged in");
+            window.location.href = "accountpage.html"
+        } // Else nothing happens
+        console.log("User is not logged in");
+    });
 });
 
 // Click events below
@@ -48,22 +42,37 @@ $("#signup-button").click(function () {
 $('#google-button').click(function () {
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth()
-    .signInWithPopup(provider)
-    .then((result) => {
-         // The signed-in user info.
-        var user = result.user;
-        console.log(user, "sign in via google");
-        // IdP data available in result.additionalUserInfo.profile.
-        // ...
-    }).catch((error) => {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        // ...
+        .signInWithPopup(provider)
+        .then((result) => {
+            var user = result.user;
+            console.log(user.displayName, "has logged in via google");
+
+            // Check if the user's data collection exists, if not, create it
+            const userCollection = db.collection('userData').doc(user.uid);
+
+            userCollection.get().then((doc) => {
+                if (!doc.exists) {
+                    // User's collection does not exist, create it
+                    userCollection.set({
+                        // Add initial data here
+                    }).then(() => {
+                        console.log("User collection created");
+                    }).catch((error) => {
+                        console.error("Error creating user collection: ", error);
+                    });
+                }
+            }).catch((error) => {
+                console.error("Error checking user collection: ", error);
+            });
+            window.location.href = "accountpage.html"
+        }).catch((error) => {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
         });
 });
 
@@ -81,12 +90,8 @@ $('#loginSubmit').click(function (e) {
             // Signed in
             console.log('login in');
             let user = firebase.auth().currentUser;
-            if (user != null) {
-                name = user.displayName;
-                email = user.email;
-                photoUrl = user.photoURL;
-                emailVerified = user.emailVerified;
-                console.log(name, email, emailVerified);
+            if (success) { // Sucessfully signed so in, redirect
+                window.location.href = "accountpage.html"
             }
         })
         .catch((error) => {
@@ -112,9 +117,26 @@ $("#signupSubmit").click(function (e) {
             let user = result.user;
             user.updateProfile({
                 displayName: username
-            })
-            // ...
-            console.log(username, " \are signed up");
+            });
+            // Check if the user's data collection exists, if not, create it
+            const userCollection = db.collection('userData').doc(user.uid);
+
+            userCollection.get().then((doc) => {
+                if (!doc.exists) {
+                    // User's collection does not exist, create it
+                    userCollection.set({
+                        // Add initial data here
+                    }).then(() => {
+                        console.log("User collection created");
+                    }).catch((error) => {
+                        console.error("Error creating user collection: ", error);
+                    });
+                }
+            }).catch((error) => {
+                console.error("Error checking user collection: ", error);
+            });
+
+            window.location.href = "accountpage.html"
         })
         .catch(error => {
             var errorCode = error.code;

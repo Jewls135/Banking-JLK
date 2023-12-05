@@ -27,53 +27,57 @@
         <div class="main-content box-shadow">
             <!-- Transfer and Deposit -->
             <div class="transfer">
-                <!-- Title for Transfer -->
-                <h2>Transfer</h2>
-                <form>
-                    <!-- From -->
-                    <label for="from">From</label>
-                    <br>
-                    <select name="from" id="from">
-                        <option value="user">Debit Card</option>
-                    </select>
-                    <br>
-                    <!-- To -->
-                    <label for="tto">To</label>
-                    <br>
-                    <select name="tto" id="tto">
-                        <option value="other">Debit Card</option>
-                    </select>
-                    <br>
-                    <!-- Amount -->
-                    <label for="tamount">Amount</label>
-                    <br>
-                    <input type="number" id="tamount" name="tamount" min="0" max="1000000">
-                    <br>
-                    <!-- Cancel -->
-                    <input type="reset" id="cancel" value="Cancel">
-                    <!-- Submit -->
-                    <input type="submit" id="tsubmit" value="Submit">
-                </form>
+                <!-- Transfer Title, clicking makes the form visible-->
+                <h2 onclick="toggleForm('transferForm')">Transfer</h2>
+                <div id="transferForm" style="display: none;">
+                    <form>
+                        <!-- From -->
+                        <label for="from">From</label>
+                        <br>
+                        <select name="from" id="from">
+                            <option value="user">Debit Card</option>
+                        </select>
+                        <br>
+                        <!-- To -->
+                        <label for="tto">To</label>
+                        <br>
+                        <select name="tto" id="tto">
+                            <option value="other">Debit Card</option>
+                        </select>
+                        <br>
+                        <!-- Amount -->
+                        <label for="tamount">Amount</label>
+                        <br>
+                        <input type="number" id="tamount" name="tamount" min="0" max="1000000">
+                        <br>
+                        <!-- Cancel -->
+                        <input type="reset" id="cancel" value="Cancel">
+                        <!-- Submit -->
+                        <input type="submit" id="tsubmit" value="Submit">
+                    </form>
+                </div>
             </div>
             <div class="deposit">
-                <!-- Title for Deposit -->
-                <h2>Deposit</h2>
-                <form>
-                    <!-- To -->
-                    <label for="dto">To</label>
-                    <br>
-                    <select name="dto" id="dto">
-                        <option value="user">Debit Card</option>
-                    </select>
-                    <br>
-                    <!-- Amount -->
-                    <label for="damount">Amount</label>
-                    <br>
-                    <input type="number" id="damount" name="damount" min="0" max="1000000">
-                    <br>
-                    <!-- Submit -->
-                    <input type="submit" id="dsubmit" value="Submit">
-                </form>
+                <!-- Deposit Title, clicking makes the form visible-->
+                <h2 onclick="toggleForm('depositForm')">Deposit</h2>
+                <div id="depositForm" style="display: none;">
+                    <form>
+                        <!-- To -->
+                        <label for="dto">To</label>
+                        <br>
+                        <select name="dto" id="dto">
+                            <option value="user">Debit Card</option>
+                        </select>
+                        <br>
+                        <!-- Amount -->
+                        <label for="damount">Amount</label>
+                        <br>
+                        <input type="number" id="damount" name="damount" min="0" max="1000000">
+                        <br>
+                        <!-- Submit -->
+                        <input type="submit" id="dsubmit" value="Submit">
+                    </form>
+                </div>
             </div>
         </div>
 
@@ -84,5 +88,17 @@
 
         <!-- Linking javascript -->
         <script src="../js/transferdeposit.js"></script>
+
+        <!-- Toggle forms -->
+        <script>
+            function toggleForm(formId) {
+              var form = document.getElementById(formId);
+              if (form.style.display === "none") {
+                form.style.display = "block";
+              } else {
+                form.style.display = "none";
+              }
+            }
+        </script>
     </body>
 </html>

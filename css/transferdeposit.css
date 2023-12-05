@@ -1,1 +1,5 @@
 /*Transfer and Deposit CSS*/
+/* Add space between the transfer and deposit classes */
+.transfer, .deposit{
+    margin: 40px;
+}

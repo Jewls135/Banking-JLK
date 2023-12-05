@@ -1,4 +1,4 @@
-
+/*Login page Javascript*/
 const firebaseConfig = {
     apiKey: "AIzaSyBRzL4hYESxYOmG6qBchI2hRGi4XI3rX-A",
     authDomain: "banking-jlk.firebaseapp.com",

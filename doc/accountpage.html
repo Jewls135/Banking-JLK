@@ -24,7 +24,27 @@
             <a href="supportpage.html">Support</a>
         </div>
         <div class="main-content box-shadow">
-            
+            <!-- Account -->
+            <div class="account">
+                <!-- Account Title -->
+                <h2>Account Information</h2>
+                <!-- Account Form -->
+                <form>
+                    <!-- User's Name: Card Number -->
+                    <label for="name">Name: </label>
+                    <br>
+                    <input type="text" id="name" name="name" value="John Doe" readonly>
+                    <br>
+                    <!-- Account Balance -->
+                    <label for="balance">Balance: </label>
+                    <br>
+                    <input type="number" id="balance" name="balance" value="1000" readonly>
+                    <br>
+                    <!-- Display Transaction History Below Account Balance when clicked -->
+                    <input type="button" id="history" value="Transaction History" onclick="toggleForm('historyForm')">
+                    <br>
+                </form>
+            </div>
         </div>
         <!-- The core Firebase JS SDK is always required and must be listed first -->
 	    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-compat.js"></script>

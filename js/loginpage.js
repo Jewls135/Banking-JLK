@@ -98,11 +98,11 @@ $('#google-button').click(function () {
             }).then(() => {
                 console.log("User collection created");
                 generateUniqueCard(user.uid); // Generating credit card
+                // Redirecting
+                window.location = "accountpage.html";
             }).catch((error) => {
                 console.error("Error creating user collection: ", error);
             });
-            // Redirecting
-            window.location = "accountpage.html";
         }).catch((error) => {
             signingUp = false;
             // Handle Errors here.
@@ -161,11 +161,11 @@ $("#signupSubmit").click(function (e) {
             }).then(() => {
                 console.log("User collection created");
                 generateUniqueCard(user.uid); // Generating credit card
+                // Redirecting
+                window.location = "accountpage.html";
             }).catch((error) => {
                 console.error("Error creating user collection: ", error);
             });
-            // Redirecting
-            window.location = "accountpage.html";
         })
         .catch(error => {
             signingUp = false;

@@ -44,3 +44,35 @@ firebase.auth().onAuthStateChanged(function (user) { // Checking if user is logg
         window.location.href = "loginpage.html"
     }
 });
+
+// Function to handle transfer
+function handleTransfer() {
+    const fromAccount = document.getElementById('from').value;
+    const toAccount = document.getElementById('tto').value;
+    const amount = parseFloat(document.getElementById('tamount').value);
+
+    // Perform transfer operations
+
+    console.log(`Transferring ${amount} from ${fromAccount} to ${toAccount}`);
+}
+
+// Function to handle deposit
+function handleDeposit() {
+    const toAccount = document.getElementById('dto').value;
+    const amount = parseFloat(document.getElementById('damount').value);
+
+    // Perform deposit operations
+
+    console.log(`Depositing ${amount} to ${toAccount}`);
+}
+
+// Add event listeners to the submit buttons
+document.getElementById('tsubmit').addEventListener('click', function (event) {
+    event.preventDefault(); // Prevent form submission
+    handleTransfer(); // Call the function to handle transfer
+});
+
+document.getElementById('dsubmit').addEventListener('click', function (event) {
+    event.preventDefault(); // Prevent form submission
+    handleDeposit(); // Call the function to handle deposit
+});

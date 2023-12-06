@@ -29,22 +29,37 @@
                 <h2>Account Information</h2>
                 <!-- Account Form -->
                 <form>
-                    <!-- User's Name: Card Number -->
-                    <label for="name">Name: </label>
-                    <br>
-                    <input type="text" id="name" name="name" value="John Doe" readonly>
-                    <br>
-                    <!-- Account Balance -->
-                    <label for="balance">Balance: </label>
-                    <br>
-                    <input type="number" id="balance" name="balance" value="1000" readonly>
-                    <br>
-                    <!-- Display Transaction History Below Account Balance when clicked -->
-                    <input type="button" id="history" value="Transaction History" onclick="toggleForm('historyForm')">
-                    <br>
+                    <!-- Account Details -->
+                    <div class="account-details">
+                        <!-- User's Name -->
+                        <div class="detail">
+                            <label for="name">Name: </label>
+                            <input type="text" id="name" name="name" value="John Doe" readonly>
+                        </div>
+                        <!-- Account Balance -->
+                        <div class="detail">
+                            <label for="balance">Balance: </label>
+                            <input type="number" id="balance" name="balance" value="0" readonly>
+                        </div>
+                        <!-- Transaction History -->
+                        <div class="detail">
+                            <input type="button" id="history" value="Transaction History" onclick="toggleForm('historyForm')">
+                        </div>
+                    </div>
                 </form>
             </div>
-        </div>
+            <!-- Transaction History Table -->
+            <div id="transactionHistory" style="display: none;">
+                <h2>Transaction History</h2>
+                <table id="transactionTable">
+                    <tr>
+                        <th>Type</th>
+                        <th>Amount</th>
+                    </tr>
+                    <!-- Table rows will be dynamically populated by JavaScript -->
+                </table>
+            </div>
+        </div>        
         <div class = "footer">&copy;2023 JLK Banking. All rights reserved.</div>
         <!-- The core Firebase JS SDK is always required and must be listed first -->
 	    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-compat.js"></script>

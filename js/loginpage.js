@@ -42,8 +42,8 @@ async function generateCardNumber(userId) {
     do {
         randomNumber = Math.floor(Math.random() * 9000000000000000) + 1000000000000000;
         randomNumber = randomNumber.toString().substring(0, 16); // Making sure it's 16 digits
-        console.log(existingDoc.data().numbers);
-    } while (existingDoc.data().numbers.includes(randomNumber)); // Check if 'numbers' is defined
+        console.log(existingDoc.get("numbers"));
+    } while (existingDoc.get("numbers").includes(randomNumber));
 
     try {
         const existingNumbers = existingDoc.data().numbers || [];

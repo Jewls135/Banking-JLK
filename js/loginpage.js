@@ -19,7 +19,7 @@ $(document).ready(function () {
     $(".signup-form").hide();
 
     firebase.auth().onAuthStateChanged(function (user) {
-        if (signingUp) {
+        if (signingUp) { // If user is signing up we don't want to redirect them here since it will prevent the rest of the code from running
             return
         }
 
@@ -29,10 +29,44 @@ $(document).ready(function () {
             currentemail = user.email;
             console.log("User is logged in");
             window.location.href = "accountpage.html"
-        } // Else nothing happens
+        }
         console.log("User is not logged in");
     });
 });
+
+async function generateCardNumber(userId) { // Function used to generate a random number for the given userId, update the existing numbers, and create a new doc for the user
+    const userCards = db.collection('userCards');
+    const existingDoc = await userCards.doc('existingCards').get();
+
+    let randomNumber;
+    do {
+        randomNumber = Math.floor(Math.random() * 9000000000000000) + 1000000000000000;
+    } while (existingDoc.data().numbers.includes(randomNumber));
+
+    try {
+       
+        await userCards.doc('existingCards').update({ // Updating existingCards doc
+            numbers: [...existingDoc.data().numbers, randomNumber]
+        });
+
+        await userCards.doc(userId).set({ // Setting user card doc
+            cardNumber: randomNumber.toString()
+        });
+
+        console.log("Card number generated and doc was created");
+        return true;
+    } catch (error) {
+        console.error("Error generating card number:", error);
+        return false;
+    }
+}
+
+async function generateUniqueCard(userId) { // Function used to generate a card number for the given user until its completely successfully
+    let success = false;
+    while (!success) {
+        success = await generateCardNumber(userId);
+    }
+}
 
 // Click events below
 $("#login-button").click(function () {
@@ -54,22 +88,23 @@ $('#google-button').click(function () {
         .then((result) => {
             // Signed in
             let user = result.user;
-            // Check if the user's data collection exists, if not, create it
+            // Creating document under userData collection for specific user based on userId
             const userCollection = db.collection('userData').doc(user.uid);
-            // User's collection does not exist, create it
             userCollection.set({
                 username: user.email,
                 email: user.email,
                 balance: "0",
-                transactionHistory: { transaction0: "amount" },
+                transactionHistory: { initialDeposit: "100" },
             }).then(() => {
                 console.log("User collection created");
+                generateUniqueCard(user.uid); // Generating credit card
             }).catch((error) => {
                 console.error("Error creating user collection: ", error);
             });
-            signingUp = false;
+            // Redirecting
             window.location = "accountpage.html";
         }).catch((error) => {
+            signingUp = false;
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
@@ -93,7 +128,6 @@ $('#loginSubmit').click(function (e) {
         .then((success) => {
             // Signed in
             console.log('login in');
-            let user = firebase.auth().currentUser;
         })
         .catch((error) => {
             var errorCode = error.code;
@@ -110,30 +144,31 @@ $("#signupSubmit").click(function (e) {
     var email = $('#signupEmail').val();
     var password = $('#signupPassword').val();
 
-    // create a user with email address and password
+    // Create a user with email address and password
     firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then((result) => {
             // Signed in
             let user = result.user;
-            // Check if the user's data collection exists, if not, create it
+            // Creating document under userData collection for specific user based on userId
             const userCollection = db.collection('userData').doc(user.uid);
-            // User's collection does not exist, create it
             userCollection.set({
                 username: user.email,
                 email: user.email,
                 balance: "0",
-                transactionHistory: { transaction0: "amount" },
+                transactionHistory: { initialDeposit: "100" },
             }).then(() => {
                 console.log("User collection created");
+                generateUniqueCard(user.uid); // Generating credit card
             }).catch((error) => {
                 console.error("Error creating user collection: ", error);
             });
-            signingUp = false;
+            // Redirecting
             window.location = "accountpage.html";
         })
         .catch(error => {
+            signingUp = false;
             var errorCode = error.code;
             var errorMessage = error.message;
             console.log(error.code);

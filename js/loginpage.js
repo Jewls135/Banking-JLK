@@ -48,9 +48,13 @@ async function generateCardNumber(userId) {
             randomNumber = randomNumber.toString().substring(0, 16); // Making sure it's 16 digits
         } while (numbers.includes(randomNumber));
 
-        numbers.push({ userId, number: randomNumber });
+        numbers.push(randomNumber);
         await existingDoc.update({
             numbers: numbers
+        });
+
+        await userCards.doc(randomNumber).set({
+            UserID: userId
         });
         return true;
     } catch (error) {

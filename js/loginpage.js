@@ -117,26 +117,24 @@ $("#signupSubmit").click(function (e) {
             let user = result.user;
             user.updateProfile({
                 displayName: username
-            });
-            // Check if the user's data collection exists, if not, create it
-            const userCollection = db.collection('userData').doc(user.uid);
+            }).then(() => {
+                // Check if the user's data collection exists, if not, create it
+                const userCollection = db.collection('userData').doc(user.uid);
+                // User's collection does not exist, create it
+                userCollection.set({
+                    username: user.displayName,
+                    email: user.email,
+                    balance: "0",
+                    transactionHistory: { transaction0: "amount" },
 
-            userCollection.get().then((doc) => {
-                if (!doc.exists) {
-                    // User's collection does not exist, create it
-                    userCollection.set({
-                        // Add initial data here
-                    }).then(() => {
-                        console.log("User collection created");
-                    }).catch((error) => {
-                        console.error("Error creating user collection: ", error);
-                    });
-                }
-            }).catch((error) => {
-                console.error("Error checking user collection: ", error);
-            });
+                }).then(() => {
+                    console.log("User collection created");
+                    window.location.href = "accountpage.html";
+                }).catch((error) => {
+                    console.error("Error creating user collection: ", error);
+                });
 
-            window.location.href = "accountpage.html"
+            });
         })
         .catch(error => {
             var errorCode = error.code;

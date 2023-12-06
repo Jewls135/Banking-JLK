@@ -12,6 +12,7 @@ const firebaseConfig = {
 $(document).ready(function () {
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
     $(".login-form").hide();
     $(".signup-form").hide();
 

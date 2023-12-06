@@ -91,9 +91,6 @@ $('#loginSubmit').click(function (e) {
             // Signed in
             console.log('login in');
             let user = firebase.auth().currentUser;
-            if (success) { // Sucessfully signed so in, redirect
-                window.location.href = "accountpage.html"
-            }
         })
         .catch((error) => {
             var errorCode = error.code;
@@ -127,11 +124,10 @@ $("#signupSubmit").click(function (e) {
                     email: user.email,
                     balance: "0",
                     transactionHistory: { transaction0: "amount" },
-
                 }).then(() => {
                     console.log("User collection created");
+                    window.alert(userCollection)
                     console.log(userCollection)
-                    // window.location.href = "accountpage.html";
                 }).catch((error) => {
                     console.error("Error creating user collection: ", error);
                 });

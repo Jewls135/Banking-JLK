@@ -40,6 +40,7 @@ $("#signup-button").click(function () {
 
 // Google Sign in
 $('#google-button').click(function () {
+    window.alert("google button clicked!")
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth()
         .signInWithPopup(provider)
@@ -60,7 +61,6 @@ $('#google-button').click(function () {
 
                 }).then(() => {
                     console.log("User collection created");
-                    window.location.href = "accountpage.html";
                 }).catch((error) => {
                     console.error("Error creating user collection: ", error);
                 });
@@ -79,6 +79,7 @@ $('#google-button').click(function () {
 
 // Login submit button
 $('#loginSubmit').click(function (e) {
+    window.alert("login button clicked!")
     e.preventDefault();
     // Getting email/password from the inputs
     var email = $('#loginEmail').val();
@@ -101,6 +102,7 @@ $('#loginSubmit').click(function (e) {
 
 // Signup submit button
 $("#signupSubmit").click(function (e) {
+    window.alert("signup button clicked!")
     e.preventDefault();
     // Getting email/password from the inputs
     var email = $('#signupEmail').val();

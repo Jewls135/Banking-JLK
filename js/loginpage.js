@@ -46,8 +46,6 @@ async function generateCardNumber(userId) {
     } while (existingDoc.get("numbers").includes(randomNumber));
 
     try {
-        const existingNumbers = existingDoc.data().numbers || [];
-
         await userCards.doc('existingCards').update({
             numbers: [...existingNumbers, randomNumber]
         });

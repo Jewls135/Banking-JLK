@@ -34,23 +34,23 @@ $(document).ready(function () {
     });
 });
 
-async function generateCardNumber(userId) { // Function used to generate a random number for the given userId, update the existing numbers, and create a new doc for the user
+async function generateCardNumber(userId) {
     const userCards = db.collection('userCards');
     const existingDoc = await userCards.doc('existingCards').get();
 
     let randomNumber;
     do {
         randomNumber = Math.floor(Math.random() * 9000000000000000) + 1000000000000000;
-    } while (existingDoc.data().numbers.includes(randomNumber));
+        randomNumber = randomNumber.toString().substring(0, 16); // Making sure it's 16 digits
+    } while (existingDoc.data().numbers.includes(randomNumber)); // While number is not unique
 
     try {
-       
-        await userCards.doc('existingCards').update({ // Updating existingCards doc
+        await userCards.doc('existingCards').update({
             numbers: [...existingDoc.data().numbers, randomNumber]
         });
 
-        await userCards.doc(userId).set({ // Setting user card doc
-            cardNumber: randomNumber.toString()
+        await userCards.doc(userId).set({
+            cardNumber: randomNumber
         });
 
         console.log("Card number generated and doc was created");
@@ -63,7 +63,7 @@ async function generateCardNumber(userId) { // Function used to generate a rando
 
 async function generateUniqueCard(userId) { // Function used to generate a card number for the given user until its completely successfully
     let success = false;
-    while (!success) {
+    while (!success) { // While not a success keep trying
         success = await generateCardNumber(userId);
     }
 }

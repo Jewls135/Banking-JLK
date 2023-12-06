@@ -58,7 +58,7 @@ $('#google-button').click(function () {
             const userCollection = db.collection('userData').doc(user.uid);
             // User's collection does not exist, create it
             userCollection.set({
-                username: user.username,
+                username: user.email,
                 email: user.email,
                 balance: "0",
                 transactionHistory: { transaction0: "amount" },
@@ -121,7 +121,7 @@ $("#signupSubmit").click(function (e) {
             const userCollection = db.collection('userData').doc(user.uid);
             // User's collection does not exist, create it
             userCollection.set({
-                username: user.username,
+                username: user.email,
                 email: user.email,
                 balance: "0",
                 transactionHistory: { transaction0: "amount" },

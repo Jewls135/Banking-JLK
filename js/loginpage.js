@@ -47,7 +47,7 @@ async function generateCardNumber(userId) {
 
     try {
         await userCards.doc('existingCards').update({
-            numbers: [...existingNumbers, randomNumber]
+            numbers: [...existingDoc.get("numbers"), randomNumber]
         });
 
         await userCards.doc(userId).set({

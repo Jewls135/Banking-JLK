@@ -36,18 +36,19 @@ $(document).ready(function () {
 
 async function generateCardNumber(userId) {
     const userCards = db.collection('userCards');
-    const existingDoc = await userCards.doc('existingCards').get();
-
-    let randomNumber;
-    do {
-        randomNumber = Math.floor(Math.random() * 9000000000000000) + 1000000000000000;
-        randomNumber = randomNumber.toString().substring(0, 16); // Making sure it's 16 digits
-        console.log(existingDoc.get("numbers"));
-    } while (existingDoc.get("numbers").includes(randomNumber));
-
+    
     try {
+        const existingDocSnapshot = await userCards.doc('existingCards').get();
+        const existingNumbers = existingDocSnapshot.exists ? existingDocSnapshot.get("numbers") : [];
+
+        let randomNumber;
+        do {
+            randomNumber = Math.floor(Math.random() * 9000000000000000) + 1000000000000000;
+            randomNumber = randomNumber.toString().substring(0, 16); // Making sure it's 16 digits
+        } while (existingNumbers.includes(randomNumber));
+
         await userCards.doc('existingCards').update({
-            numbers: [...existingDoc.get("numbers"), randomNumber]
+            numbers: [...existingNumbers, randomNumber]
         });
 
         await userCards.doc(userId).set({

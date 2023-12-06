@@ -12,11 +12,17 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
+let signingUp = false;
+
 $(document).ready(function () {
     $(".login-form").hide();
     $(".signup-form").hide();
 
-    /*firebase.auth().onAuthStateChanged(function (user) {
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (signingUp){
+            return
+        }
+
         if (user) {  // If user is logged in, redirect to homepage
             // User is signed in
             currentuser = user;
@@ -25,7 +31,7 @@ $(document).ready(function () {
             window.location.href = "accountpage.html"
         } // Else nothing happens
         console.log("User is not logged in");
-    });*/
+    });
 });
 
 // Click events below
@@ -41,7 +47,7 @@ $("#signup-button").click(function () {
 
 // Google Sign in
 $('#google-button').click(function () {
-    window.alert("google button clicked!")
+    signingUp = true;
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth()
         .signInWithPopup(provider)
@@ -51,6 +57,8 @@ $('#google-button').click(function () {
             user.updateProfile({
                 displayName: username
             }).then(() => {
+                // Signed in
+                let user = result.user;
                 // Check if the user's data collection exists, if not, create it
                 const userCollection = db.collection('userData').doc(user.uid);
                 // User's collection does not exist, create it
@@ -58,14 +66,12 @@ $('#google-button').click(function () {
                     username: user.displayName,
                     email: user.email,
                     balance: "0",
-                    transactionHistory: { transaction0: "amount" },
-
+                    transactionHistory: {transaction0: "amount"},
                 }).then(() => {
                     console.log("User collection created");
                 }).catch((error) => {
                     console.error("Error creating user collection: ", error);
                 });
-
             });
         }).catch((error) => {
             // Handle Errors here.
@@ -80,7 +86,6 @@ $('#google-button').click(function () {
 
 // Login submit button
 $('#loginSubmit').click(function (e) {
-    window.alert("login button clicked!")
     e.preventDefault();
     // Getting email/password from the inputs
     var email = $('#loginEmail').val();
@@ -103,7 +108,7 @@ $('#loginSubmit').click(function (e) {
 
 // Signup submit button
 $("#signupSubmit").click(function (e) {
-    window.alert("signup button clicked!")
+    signingUp = true;
     e.preventDefault();
     // Getting email/password from the inputs
     var email = $('#signupEmail').val();
@@ -116,7 +121,6 @@ $("#signupSubmit").click(function (e) {
         .then((result) => {
             // Signed in
             let user = result.user;
-            window.alert("HERE!")
             // Check if the user's data collection exists, if not, create it
             const userCollection = db.collection('userData').doc(user.uid);
             // User's collection does not exist, create it
@@ -127,14 +131,9 @@ $("#signupSubmit").click(function (e) {
                 transactionHistory: { transaction0: "amount" },
             }).then(() => {
                 console.log("User collection created");
-                window.alert(userCollection)
-                console.log(userCollection)
             }).catch((error) => {
                 console.error("Error creating user collection: ", error);
-                window.alert(userCollection)
             });
-
-
         })
         .catch(error => {
             var errorCode = error.code;

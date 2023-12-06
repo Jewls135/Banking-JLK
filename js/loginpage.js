@@ -35,7 +35,7 @@ $(document).ready(function () {
 });
 
 async function generateCardNumber(userId) {
-    const userCards = db.collection('userCards');
+    const userCards = db.collection('userCard');
     
     try {
         const existingDocSnapshot = await userCards.doc('existingCards').get();

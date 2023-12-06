@@ -38,15 +38,22 @@ async function generateCardNumber(userId) {
     const userCards = db.collection('userCards');
     const existingDoc = await userCards.doc('existingCards').get();
 
+    if (!existingDoc.exists) {
+        console.error("Error: 'existingCards' document does not exist");
+        return false;
+    }
+
     let randomNumber;
     do {
         randomNumber = Math.floor(Math.random() * 9000000000000000) + 1000000000000000;
         randomNumber = randomNumber.toString().substring(0, 16); // Making sure it's 16 digits
-    } while (existingDoc.data().numbers.includes(randomNumber)); // While number is not unique
+    } while (existingDoc.data().numbers && existingDoc.data().numbers.includes(randomNumber)); // Check if 'numbers' is defined
 
     try {
+        const existingNumbers = existingDoc.data().numbers || [];
+
         await userCards.doc('existingCards').update({
-            numbers: [...existingDoc.data().numbers, randomNumber]
+            numbers: [...existingNumbers, randomNumber]
         });
 
         await userCards.doc(userId).set({
@@ -99,7 +106,7 @@ $('#google-button').click(function () {
                 console.log("User collection created");
                 generateUniqueCard(user.uid).then(() => { // Generating credit card
                     window.location = "accountpage.html";
-                }); 
+                });
                 // Redirecting
             }).catch((error) => {
                 console.error("Error creating user collection: ", error);
@@ -163,7 +170,7 @@ $("#signupSubmit").click(function (e) {
                 console.log("User collection created");
                 generateUniqueCard(user.uid).then(() => { // Generating credit card
                     window.location = "accountpage.html";
-                }); 
+                });
             }).catch((error) => {
                 console.error("Error creating user collection: ", error);
             });

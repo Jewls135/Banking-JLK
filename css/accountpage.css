@@ -1,0 +1,17 @@
+/* Account Page CSS */
+/* Account */
+.account {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Account Details */
+.account-details {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+/* Detail */
+.detail {
+    margin: 10px; /* Adjust spacing between details */
+}

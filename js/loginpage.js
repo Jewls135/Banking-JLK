@@ -19,7 +19,7 @@ $(document).ready(function () {
     $(".signup-form").hide();
 
     firebase.auth().onAuthStateChanged(function (user) {
-        if (signingUp){
+        if (signingUp) {
             return
         }
 
@@ -54,26 +54,21 @@ $('#google-button').click(function () {
         .then((result) => {
             // Signed in
             let user = result.user;
-            user.updateProfile({
-                displayName: username
+            // Check if the user's data collection exists, if not, create it
+            const userCollection = db.collection('userData').doc(user.uid);
+            // User's collection does not exist, create it
+            userCollection.set({
+                username: user.username,
+                email: user.email,
+                balance: "0",
+                transactionHistory: { transaction0: "amount" },
             }).then(() => {
-                // Signed in
-                let user = result.user;
-                // Check if the user's data collection exists, if not, create it
-                const userCollection = db.collection('userData').doc(user.uid);
-                // User's collection does not exist, create it
-                userCollection.set({
-                    username: user.displayName,
-                    email: user.email,
-                    balance: "0",
-                    transactionHistory: {transaction0: "amount"},
-                }).then(() => {
-                    console.log("User collection created");
-                }).catch((error) => {
-                    console.error("Error creating user collection: ", error);
-                });
-                signingUp = false;
+                console.log("User collection created");
+            }).catch((error) => {
+                console.error("Error creating user collection: ", error);
             });
+            signingUp = false;
+            window.location = "accountpage.html";
         }).catch((error) => {
             // Handle Errors here.
             var errorCode = error.code;
@@ -126,7 +121,7 @@ $("#signupSubmit").click(function (e) {
             const userCollection = db.collection('userData').doc(user.uid);
             // User's collection does not exist, create it
             userCollection.set({
-                username: user.displayName,
+                username: user.username,
                 email: user.email,
                 balance: "0",
                 transactionHistory: { transaction0: "amount" },
@@ -136,6 +131,7 @@ $("#signupSubmit").click(function (e) {
                 console.error("Error creating user collection: ", error);
             });
             signingUp = false;
+            window.location = "accountpage.html";
         })
         .catch(error => {
             var errorCode = error.code;

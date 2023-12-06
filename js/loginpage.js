@@ -35,16 +35,12 @@ $(document).ready(function () {
 });
 
 async function generateCardNumber(userId) {
-    const userCards = db.collection('userCard');
-
     try {
         const userCards = db.collection("userCard");
         const existingDoc = userCards.doc("existingCards");
-        let numbers;
 
-        existingDoc.get().then(ds => {
-            numbers = ds.data['numbers'];
-        });
+        const ds = await existingDoc.get();
+        let numbers = ds.data()['numbers'];
 
         let randomNumber;
         do {
@@ -52,15 +48,10 @@ async function generateCardNumber(userId) {
             randomNumber = randomNumber.toString().substring(0, 16); // Making sure it's 16 digits
         } while (numbers.includes(randomNumber));
 
-        await userCards.doc('existingCards').update({
-            numbers: [...numbers, randomNumber]
+        numbers.push({ userId, number: randomNumber });
+        await existingDoc.update({
+            numbers: numbers
         });
-
-        await userCards.doc(userId).set({
-            cardNumber: randomNumber
-        });
-
-        console.log("Card number generated and doc was created");
         return true;
     } catch (error) {
         console.error("Error generating card number:", error);

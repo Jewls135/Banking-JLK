@@ -116,6 +116,7 @@ $("#signupSubmit").click(function (e) {
             user.updateProfile({
                 displayName: username
             }).then(() => {
+                window.alert("HERE!")
                 // Check if the user's data collection exists, if not, create it
                 const userCollection = db.collection('userData').doc(user.uid);
                 // User's collection does not exist, create it
@@ -130,6 +131,7 @@ $("#signupSubmit").click(function (e) {
                     console.log(userCollection)
                 }).catch((error) => {
                     console.error("Error creating user collection: ", error);
+                    window.alert(userCollection)
                 });
 
             });

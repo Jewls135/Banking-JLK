@@ -44,27 +44,28 @@ $('#google-button').click(function () {
     firebase.auth()
         .signInWithPopup(provider)
         .then((result) => {
-            var user = result.user;
-            console.log(user.displayName, "has logged in via google");
+            // Signed in
+            let user = result.user;
+            user.updateProfile({
+                displayName: username
+            }).then(() => {
+                // Check if the user's data collection exists, if not, create it
+                const userCollection = db.collection('userData').doc(user.uid);
+                // User's collection does not exist, create it
+                userCollection.set({
+                    username: user.displayName,
+                    email: user.email,
+                    balance: "0",
+                    transactionHistory: { transaction0: "amount" },
 
-            // Check if the user's data collection exists, if not, create it
-            const userCollection = db.collection('userData').doc(user.uid);
+                }).then(() => {
+                    console.log("User collection created");
+                    window.location.href = "accountpage.html";
+                }).catch((error) => {
+                    console.error("Error creating user collection: ", error);
+                });
 
-            userCollection.get().then((doc) => {
-                if (!doc.exists) {
-                    // User's collection does not exist, create it
-                    userCollection.set({
-                        // Add initial data here
-                    }).then(() => {
-                        console.log("User collection created");
-                    }).catch((error) => {
-                        console.error("Error creating user collection: ", error);
-                    });
-                }
-            }).catch((error) => {
-                console.error("Error checking user collection: ", error);
             });
-            window.location.href = "accountpage.html"
         }).catch((error) => {
             // Handle Errors here.
             var errorCode = error.code;
@@ -129,7 +130,8 @@ $("#signupSubmit").click(function (e) {
 
                 }).then(() => {
                     console.log("User collection created");
-                    window.location.href = "accountpage.html";
+                    console.log(userCollection)
+                    // window.location.href = "accountpage.html";
                 }).catch((error) => {
                     console.error("Error creating user collection: ", error);
                 });

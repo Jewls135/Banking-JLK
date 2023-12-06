@@ -97,9 +97,10 @@ $('#google-button').click(function () {
                 transactionHistory: { initialDeposit: "100" },
             }).then(() => {
                 console.log("User collection created");
-                generateUniqueCard(user.uid); // Generating credit card
+                generateUniqueCard(user.uid).then(() => { // Generating credit card
+                    window.location = "accountpage.html";
+                }); 
                 // Redirecting
-                window.location = "accountpage.html";
             }).catch((error) => {
                 console.error("Error creating user collection: ", error);
             });
@@ -160,9 +161,9 @@ $("#signupSubmit").click(function (e) {
                 transactionHistory: { initialDeposit: "100" },
             }).then(() => {
                 console.log("User collection created");
-                generateUniqueCard(user.uid); // Generating credit card
-                // Redirecting
-                window.location = "accountpage.html";
+                generateUniqueCard(user.uid).then(() => { // Generating credit card
+                    window.location = "accountpage.html";
+                }); 
             }).catch((error) => {
                 console.error("Error creating user collection: ", error);
             });

@@ -15,7 +15,7 @@ $(document).ready(function () {
     $(".login-form").hide();
     $(".signup-form").hide();
 
-    firebase.auth().onAuthStateChanged(function (user) {
+    /*firebase.auth().onAuthStateChanged(function (user) {
         if (user) {  // If user is logged in, redirect to homepage
             // User is signed in
             currentuser = user;
@@ -24,7 +24,7 @@ $(document).ready(function () {
             window.location.href = "accountpage.html"
         } // Else nothing happens
         console.log("User is not logged in");
-    });
+    });*/
 });
 
 // Click events below

@@ -72,6 +72,7 @@ $('#google-button').click(function () {
                 }).catch((error) => {
                     console.error("Error creating user collection: ", error);
                 });
+                signingUp = false;
             });
         }).catch((error) => {
             // Handle Errors here.
@@ -134,6 +135,7 @@ $("#signupSubmit").click(function (e) {
             }).catch((error) => {
                 console.error("Error creating user collection: ", error);
             });
+            signingUp = false;
         })
         .catch(error => {
             var errorCode = error.code;

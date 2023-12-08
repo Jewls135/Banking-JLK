@@ -51,6 +51,7 @@ function createOptionElement(cardNumber) {
     return option;
 }
 
+
 async function handleTransfer() {
     const fromAccount = currentUser; // Assuming currentUser holds the sender's account number
     const toCardNumber = document.getElementById('tto').value;

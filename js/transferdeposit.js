@@ -18,10 +18,10 @@ let currentEmail = "";
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         // User is signed in
-
+        currentUser = user;
         // Set the 'from' option to display the user's card number in the Transfer Form
         const fromOption = document.getElementById('fromOption');
-        fromOption.textContent = `Debit Card ${user.uid.substr(0, 4)}`; // Display part of the user's ID
+        fromOption.textContent = `Debit Card ${user.uid}`; // Display part of the user's ID
 
         // Get all card numbers except the user's card number and populate the 'to' options in the Transfer Form
         const ttoSelect = document.getElementById('tto');
@@ -46,7 +46,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 function createOptionElement(cardNumber) {
     const option = document.createElement('option');
     option.value = cardNumber;
-    option.textContent = `Debit Card ${cardNumber.substr(12, 16)}`; // Display part of the card number
+    option.textContent = `Debit Card ${cardNumber}`; // Display part of the card number
     return option;
 }
 

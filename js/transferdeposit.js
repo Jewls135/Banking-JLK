@@ -130,7 +130,7 @@ async function fetchDepositData(toAccount, amount) {
         var formattedDate = year + '-' + month + '-' + day;
 
         const userData = db.collection("userData");
-        const userDoc = await userData.get(toAccount.uid);
+        const userDoc = await userData.doc(toAccount.uid).get();
 
         // Updating balance
         let balance2 = userDoc.data()['balance'];

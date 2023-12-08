@@ -57,7 +57,7 @@ async function handleTransfer() {
     try {
         // Getting collection and user from card number
         const userCards = db.collection("userCard");
-        const cardDoc = await userCards.get(toCardNumber);
+        const cardDoc = await userCards.doc(toCardNumber).get();
 
         let userId = cardDoc.data()['UserId'];
         toAccount = await firebase.auth().getUser(userId);
@@ -90,7 +90,7 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
 
         try {
             const userData = db.collection("userData");
-            const userDoc = await userData.get(currentAccount.uid);
+            const userDoc = await userData.doc(currentAccount.uid).get();
 
             // Updating balance
             let balance2 = userDoc.data()['balance'];

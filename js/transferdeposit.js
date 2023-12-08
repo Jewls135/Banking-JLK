@@ -28,7 +28,8 @@ firebase.auth().onAuthStateChanged(function (user) {
         db.collection('userCard').get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 const cardNumber = doc.id;
-                if (cardNumber !== user.uid) { // Exclude the user's own card number
+
+                if (cardNumber != "existingCards" && cardNumber !== user.uid) { // Exclude the user's own card number
                     const option = createOptionElement(cardNumber);
                     ttoSelect.appendChild(option);
                 }

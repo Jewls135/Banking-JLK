@@ -12,58 +12,137 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-var currentuser = "";
-var currentemail = "";
+let currentUser = "";
+let currentEmail = "";
 
-firebase.auth().onAuthStateChanged(function (user) { // Checking if user is logged in
+firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         // User is signed in
-        currentuser = user;
-        currentemail = user.email;
 
-        // Check if the user's data collection exists, if not, create it
-        const userCollection = db.collection('userData').doc(user.uid);
+        // Set the 'from' option to display the user's card number in the Transfer Form
+        const fromOption = document.getElementById('fromOption');
+        fromOption.textContent = `Debit Card ${user.uid.substr(0, 4)}`; // Display part of the user's ID
 
-        userCollection.get().then((doc) => {
-            if (!doc.exists) {
-                // User's collection does not exist, create it
-                userCollection.set({
-                    // Add initial data here
-                }).then(() => {
-                    console.log("User collection created");
-                }).catch((error) => {
-                    console.error("Error creating user collection: ", error);
-                });
-            }
+        // Get all card numbers except the user's card number and populate the 'to' options in the Transfer Form
+        const ttoSelect = document.getElementById('tto');
+        db.collection('userCard').get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                const cardNumber = doc.id;
+                if (cardNumber !== user.uid) { // Exclude the user's own card number
+                    const option = createOptionElement(cardNumber);
+                    ttoSelect.appendChild(option);
+                }
+            });
         }).catch((error) => {
-            console.error("Error checking user collection: ", error);
+            console.error('Error fetching card numbers:', error);
         });
     } else {
-        // No user is signed in so we redirect them to the login page
+        // No user is signed in, redirect to login page
         console.log("User is not logged in");
         window.location.href = "loginpage.html"
     }
 });
 
-// Function to handle transfer
+function createOptionElement(cardNumber) {
+    const option = document.createElement('option');
+    option.value = cardNumber;
+    option.textContent = `Debit Card ${cardNumber.substr(12, 16)}`; // Display part of the card number
+    return option;
+}
+
 function handleTransfer() {
-    const fromAccount = document.getElementById('from').value;
+    const fromAccount = currentUser; // Assuming currentUser holds the sender's account number
     const toAccount = document.getElementById('tto').value;
     const amount = parseFloat(document.getElementById('tamount').value);
 
-    // Perform transfer operations
-
-    console.log(`Transferring ${amount} from ${fromAccount} to ${toAccount}`);
+    fetchTransferData(fromAccount, toAccount, amount);
 }
 
-// Function to handle deposit
+function fetchTransferData(fromAccount, toAccount, amount) {
+    const promises = [
+        db.collection('userData').doc(fromAccount).get(), // Sender's data
+        db.collection('userData').doc(toAccount).get()    // Recipient's data
+    ];
+
+    Promise.all(promises)
+        .then((snapshots) => {
+            const senderData = snapshots[0].data();
+            const recipientData = snapshots[1].data();
+
+            // Check if sender has sufficient balance for the transfer
+            if (senderData.balance >= amount) {
+                // Deduct amount from sender and add to recipient
+                senderData.balance -= amount;
+                recipientData.balance += amount;
+
+                // Update transaction history for sender and recipient
+                const transactionDetailsSender = `Sent $${amount} to ${toAccount}`;
+                const transactionDetailsRecipient = `Received $${amount} from ${fromAccount}`;
+                senderData.transactionHistory.push(transactionDetailsSender);
+                recipientData.transactionHistory.push(transactionDetailsRecipient);
+
+                // Update Firestore documents for sender and recipient
+                const updateSender = db.collection('userData').doc(fromAccount).update(senderData);
+                const updateRecipient = db.collection('userData').doc(toAccount).update(recipientData);
+
+                // Handle Firestore update success or failure
+                Promise.all([updateSender, updateRecipient])
+                    .then(() => {
+                        console.log('Transfer successful');
+                    })
+                    .catch((error) => {
+                        console.error('Error updating Firestore:', error);
+                        // Handle Firestore update failure
+                    });
+            } else {
+                console.log('Insufficient balance for transfer');
+                // Handle insufficient balance error
+            }
+        })
+        .catch((error) => {
+            console.error('Error fetching data:', error);
+            // Handle errors here
+        });
+}
+
 function handleDeposit() {
-    const toAccount = document.getElementById('dto').value;
+    const toAccount = currentUser;
     const amount = parseFloat(document.getElementById('damount').value);
 
-    // Perform deposit operations
+    fetchDepositData(toAccount, amount);
+}
 
-    console.log(`Depositing ${amount} to ${toAccount}`);
+function fetchDepositData(toAccount, amount) {
+    db.collection('userData')
+        .doc(toAccount)
+        .get()
+        .then((snapshot) => {
+            const userData = snapshot.data();
+
+            // Add deposit amount to recipient's balance
+            userData.balance += amount;
+
+            // Update transaction history for deposit
+            const depositDetails = `Deposited $${amount} to ${toAccount}`;
+            userData.transactionHistory.push(depositDetails);
+
+            // Update Firestore document for recipient
+            db.collection('userData')
+                .doc(toAccount)
+                .update(userData)
+                .then(() => {
+                    console.log('Deposit successful');
+                    // Handle successful deposit
+                })
+                .catch((error) => {
+                    console.error('Error updating Firestore:', error);
+                    // Handle Firestore update failure
+                });
+        })
+        .catch((error) => {
+            console.error('Error fetching data:', error);
+            // Handle errors here
+        });
 }
 
 // Add event listeners to the submit buttons

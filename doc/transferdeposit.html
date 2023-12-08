@@ -33,15 +33,15 @@
                         <!-- From -->
                         <label for="from">From</label>
                         <br>
-                        <select name="from" id="from">
-                            <option value="user">Debit Card</option>
+                        <select name="from" id="from" disabled>
+                            <option value="user" id="fromOption">Debit Card</option>
                         </select>
                         <br>
                         <!-- To -->
                         <label for="tto">To</label>
                         <br>
                         <select name="tto" id="tto">
-                            <option value="other">Debit Card</option>
+                            <!-- Populated with other users card numbers using JavaScript -->
                         </select>
                         <br>
                         <!-- Amount -->
@@ -64,8 +64,9 @@
                         <!-- To -->
                         <label for="dto">To</label>
                         <br>
-                        <select name="dto" id="dto">
-                            <option value="user">Debit Card</option>
+                        <select name="dto" id="dto" disabled>
+                            <!-- User's card number -->
+                            <option value="user" id="toDepositOption">Debit Card</option>
                         </select>
                         <br>
                         <!-- Amount -->

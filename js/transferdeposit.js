@@ -96,7 +96,7 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
             const userDoc = await userDocs.get()
 
             // Updating balance
-            let balance2 = Number(userDoc.data()['balance']);
+            let balance2 = userDoc.data()['balance'];
             balance2 += amount;
 
             // Updating transaction hisory
@@ -104,7 +104,7 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
             transHistory[formattedDate] = amount;
 
             await userDoc.update({ // Updating users current balance
-                balance: balance2.toString(),
+                balance: balance2,
                 transactionHistory: transHistory
             });
         } catch (error) {
@@ -140,14 +140,14 @@ async function fetchDepositData(toAccount, amount) {
             const formattedDate = new Date().toISOString().split('T')[0];
             
             // Updating balance
-            let balance = Number(userDoc.data().balance) + amount;
+            let balance = userDoc.data().balance + amount;
 
             // Updating transaction history
             let transactionHistory = { ...userDoc.data().transactionHistory };
             transactionHistory[formattedDate] = amount;
 
             await userDoc.ref.update({
-                balance: balance.toString(),
+                balance: balance,
                 transactionHistory: transactionHistory
             });
 

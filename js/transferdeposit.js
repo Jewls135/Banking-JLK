@@ -59,7 +59,8 @@ async function handleTransfer() {
     try {
         // Getting collection and user from card number
         const userCards = db.collection("userCard");
-        const cardDoc = await userCards.doc(toCardNumber).get();
+        const cardDocs = userCards.doc(toCardNumber);
+        const cardDoc = await cardDocs.get();
 
         let userId = cardDoc.data()['UserId'];
         toAccount = await firebase.auth().getUser(userId);
@@ -92,7 +93,8 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
 
         try {
             const userData = db.collection("userData");
-            const userDoc = await userData.doc(currentAccount.uid).get();
+            const userDocs = userData.doc(currentAccount.uid);
+            const userDoc = await userDocs.get()
 
             // Updating balance
             let balance2 = userDoc.data()['balance'];
@@ -102,7 +104,7 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
             let transHistory = userDoc.data()['transactionHistory'];
             transHistory[formattedDate] = amount;
 
-            userDoc.update({ // Updating users current balance
+            await userDoc.update({ // Updating users current balance
                 balance: balance2,
                 transactionHistory: transHistory
             });
@@ -132,8 +134,8 @@ async function fetchDepositData(toAccount, amount) {
         var formattedDate = year + '-' + month + '-' + day;
 
         const userData = db.collection("userData");
-        const userDoc = await userData.doc(toAccount.uid).get();
-
+        const userDocs = userData.doc(toAccount.uid);
+        const userDoc = await userDocs.get();
         // Updating balance
         let balance2 = userDoc.data()['balance'];
         balance2 += amount;
@@ -142,7 +144,7 @@ async function fetchDepositData(toAccount, amount) {
         let transHistory = userDoc.data()['transactionHistory'];
         transHistory[formattedDate] = amount;
 
-        userDoc.update({ // Updating users current balance
+        await userDoc.update({ // Updating users current balance
             balance: balance2,
             transactionHistory: transHistory
         });

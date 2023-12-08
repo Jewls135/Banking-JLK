@@ -131,23 +131,30 @@ async function fetchDepositData(toAccount, amount) {
 
         // Formatting the date as a string
         var formattedDate = year + '-' + month + '-' + day;
-
+        
         const userData = db.collection("userData");
-        const userDocs = userData.doc(toAccount.uid);
-        const userDoc = await userDocs.get();
-        // Updating balance
-        let balance2 = userDoc.data()['balance'];
-        balance2 += amount;
+        const document = userData.doc(toAccount.uid);
+        const userDoc = await document.get();
+        if (userDoc.exists) {
+            // Document exists, proceed with the update
+            const formattedDate = new Date().toISOString().split('T')[0];
+            
+            // Updating balance
+            let balance = userDoc.data().balance + amount;
 
-        // Updating transaction hisory
-        let transHistory = userDoc.data()['transactionHistory'];
-        transHistory[formattedDate] = amount;
+            // Updating transaction history
+            let transactionHistory = { ...userDoc.data().transactionHistory };
+            transactionHistory[formattedDate] = amount;
 
-        await userDoc.update({ // Updating users current balance
-            balance: balance2,
-            transactionHistory: transHistory
-        });
+            await userDoc.ref.update({
+                balance: balance,
+                transactionHistory: transactionHistory
+            });
 
+            console.log("Deposit successful");
+        } else {
+            console.error("Document does not exist for UID:", toAccount.uid);
+        }
     } catch (error) {
         console.error("Error depositing:", error);
     }

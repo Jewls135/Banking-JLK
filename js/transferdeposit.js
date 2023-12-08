@@ -103,7 +103,7 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
             let transHistory = userDoc.data()['transactionHistory'];
             transHistory[formattedDate] = amount;
 
-            await userDoc.update({ // Updating users current balance
+            await userDoc.ref.update({ // Updating users current balance
                 balance: balance2,
                 transactionHistory: transHistory
             });
@@ -146,7 +146,7 @@ async function fetchDepositData(toAccount, amount) {
             let transHistory = userDoc.data()['transactionHistory'];
             transHistory[formattedDate] = amount;
 
-            await userDoc.update({ // Updating users current balance
+            await userDoc.ref.update({ // Updating users current balance
                 balance: balance,
                 transactionHistory: transHistory
             });

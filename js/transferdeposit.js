@@ -100,12 +100,12 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
             balance2 += amount;
 
             // Updating transaction history
-            let transHistory = userDoc.data()['transactionHistory'] || {};
-            transHistory[formattedDate] = amount;
+            const transHistory = userDoc.data()['transactionHistory'] || {};
+            const newTransHistory = {...transHistory, formattedDate: amount};
 
             await userDoc.ref.update({
                 balance: balance2,
-                transactionHistory: transHistory,
+                transactionHistory: newTransHistory,
             });
 
         } catch (error) {
@@ -141,15 +141,15 @@ async function fetchDepositData(toAccount, amount) {
             const formattedDate = new Date().toISOString().split('T')[0];
             
             // Updating balance
-            let balance = userDoc.data().balance + amount;
+            let balance2 = userDoc.data().balance + amount;
 
-            // Updating transaction hisory
-            let transHistory = userDoc.data()['transactionHistory'] || {};
-            transHistory[formattedDate] = amount;
+            // Updating transaction history
+            const transHistory = userDoc.data()['transactionHistory'] || {};
+            const newTransHistory = {...transHistory, formattedDate: amount};
 
-            await userDoc.ref.update({ // Updating users current balance
-                balance: balance,
-                transactionHistory: transHistory
+            await userDoc.ref.update({
+                balance: balance2,
+                transactionHistory: newTransHistory,
             });
 
             console.log("Deposit successful");

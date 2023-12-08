@@ -93,10 +93,10 @@ $('#google-button').click(function () {
             // Creating document under userData collection for specific user based on userId
             const userCollection = db.collection('userData').doc(user.uid);
             userCollection.set({
-                username: user.email,
+                username: user.email.split("@")[0],
                 email: user.email,
-                balance: "0",
-                transactionHistory: { initialDeposit: "100" },
+                balance: 0,
+                transactionHistory: {},
             }).then(() => {
                 console.log("User collection created");
                 generateUniqueCard(user.uid).then(() => { // Generating credit card
@@ -157,10 +157,10 @@ $("#signupSubmit").click(function (e) {
             // Creating document under userData collection for specific user based on userId
             const userCollection = db.collection('userData').doc(user.uid);
             userCollection.set({
-                username: user.email,
+                username: user.email.split("@")[0],
                 email: user.email,
-                balance: "0",
-                transactionHistory: { initialDeposit: "100" },
+                balance: 0,
+                transactionHistory: {},
             }).then(() => {
                 console.log("User collection created");
                 generateUniqueCard(user.uid).then(() => { // Generating credit card

@@ -97,7 +97,7 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
             balance2 += amount;
 
             // Updating transaction hisory
-            let transHistory = userDoc.daata()['transactionHistory'];
+            let transHistory = userDoc.data()['transactionHistory'];
             transHistory.set(formattedDate, amount);
 
             userDoc.update({ // Updating users current balance
@@ -137,7 +137,7 @@ async function fetchDepositData(toAccount, amount) {
         balance2 += amount;
 
         // Updating transaction hisory
-        let transHistory = userDoc.daata()['transactionHistory'];
+        let transHistory = userDoc.data()['transactionHistory'];
         transHistory.set(formattedDate, amount)
 
         userDoc.update({ // Updating users current balance

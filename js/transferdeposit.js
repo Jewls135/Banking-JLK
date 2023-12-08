@@ -101,7 +101,7 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
 
             // Updating transaction history
             const transHistory = userDoc.data()['transactionHistory'] || {};
-            const newTransHistory = {...transHistory, formattedDate: amount};
+            const newTransHistory = {...transHistory, [formattedDate]: amount};
 
             await userDoc.ref.update({
                 balance: balance2,
@@ -136,16 +136,13 @@ async function fetchDepositData(toAccount, amount) {
         const userData = db.collection("userData");
         const document = userData.doc(toAccount.uid);
         const userDoc = await document.get();
-        if (userDoc.exists) {
-            // Document exists, proceed with the update
-            const formattedDate = new Date().toISOString().split('T')[0];
-            
+        if (userDoc.exists) {          
             // Updating balance
             let balance2 = userDoc.data().balance + amount;
 
             // Updating transaction history
             const transHistory = userDoc.data()['transactionHistory'] || {};
-            const newTransHistory = {...transHistory, formattedDate: amount};
+            const newTransHistory = {...transHistory, [formattedDate]: amount};
 
             await userDoc.ref.update({
                 balance: balance2,

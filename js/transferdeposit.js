@@ -93,20 +93,21 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
         try {
             const userData = db.collection("userData");
             const userDocs = userData.doc(currentAccount.uid);
-            const userDoc = await userDocs.get()
+            const userDoc = await userDocs.get();
 
             // Updating balance
             let balance2 = userDoc.data()['balance'];
             balance2 += amount;
 
-            // Updating transaction hisory
-            let transHistory = userDoc.data()['transactionHistory'] || [];
-            transHistory.push({ date: formattedDate, amount: amount });
+            // Updating transaction history
+            let transHistory = userDoc.data()['transactionHistory'] || {};
+            transHistory[formattedDate] = amount;
 
-            await userDoc.ref.update({ // Updating users current balance
+            await userDoc.ref.update({
                 balance: balance2,
-                transactionHistory: transHistory
+                transactionHistory: transHistory,
             });
+
         } catch (error) {
             console.error("Error depositing:", error);
         }
@@ -143,8 +144,8 @@ async function fetchDepositData(toAccount, amount) {
             let balance = userDoc.data().balance + amount;
 
             // Updating transaction hisory
-            let transHistory = userDoc.data()['transactionHistory'] || [];
-            transHistory.push({ date: formattedDate, amount: amount });
+            let transHistory = userDoc.data()['transactionHistory'] || {};
+            transHistory[formattedDate] = amount;
 
             await userDoc.ref.update({ // Updating users current balance
                 balance: balance,

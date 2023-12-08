@@ -58,91 +58,85 @@ function handleTransfer() {
     fetchTransferData(fromAccount, toAccount, amount);
 }
 
-function fetchTransferData(fromAccount, toAccount, amount) {
-    const promises = [
-        db.collection('userData').doc(fromAccount).get(), // Sender's data
-        db.collection('userData').doc(toAccount).get()    // Recipient's data
-    ];
+async function fetchTransferData(fromAccount, toAccount, amount) {
+    let accounts = [fromAccount, toAccount];
+    var currentDate = new Date();
 
-    Promise.all(promises)
-        .then((snapshots) => {
-            const senderData = snapshots[0].data();
-            const recipientData = snapshots[1].data();
+    // Getting the current year, month, and day
+    var year = currentDate.getFullYear();
+    var month = currentDate.getMonth() + 1;
+    var day = currentDate.getDate();
 
-            // Check if sender has sufficient balance for the transfer
-            if (senderData.balance >= amount) {
-                // Deduct amount from sender and add to recipient
-                senderData.balance -= amount;
-                recipientData.balance += amount;
+    // Formatting the date as a string
+    var formattedDate = year + '-' + month + '-' + day;
 
-                // Update transaction history for sender and recipient
-                const transactionDetailsSender = `Sent $${amount} to ${toAccount}`;
-                const transactionDetailsRecipient = `Received $${amount} from ${fromAccount}`;
-                senderData.transactionHistory.push(transactionDetailsSender);
-                recipientData.transactionHistory.push(transactionDetailsRecipient);
+    for (let i = 0; i < accounts.length; i++) {
+        let currentAccount = accounts[i];
+        if (i % 2 == 0) {
+            amount = -amount;
+        }
 
-                // Update Firestore documents for sender and recipient
-                const updateSender = db.collection('userData').doc(fromAccount).update(senderData);
-                const updateRecipient = db.collection('userData').doc(toAccount).update(recipientData);
+        try {
+            const userData = db.collection("userData");
+            const userDoc = await userData.get(currentAccount.uid);
 
-                // Handle Firestore update success or failure
-                Promise.all([updateSender, updateRecipient])
-                    .then(() => {
-                        console.log('Transfer successful');
-                    })
-                    .catch((error) => {
-                        console.error('Error updating Firestore:', error);
-                        // Handle Firestore update failure
-                    });
-            } else {
-                console.log('Insufficient balance for transfer');
-                // Handle insufficient balance error
-            }
-        })
-        .catch((error) => {
-            console.error('Error fetching data:', error);
-            // Handle errors here
-        });
+            // Updating balance
+            let balance2 = userDoc.data()['balance'];
+            balance2 += amount;
+
+            // Updating transaction hisory
+            let transHistory = userDoc.daata()['transactionHistory'];
+            transHistory.set(formattedDate, amount);
+
+            userDoc.update({ // Updating users current balance
+                balance: balance2,
+                transactionHistory: transHistory
+            });
+        } catch (error) {
+            console.error("Error depositing:", error);
+        }
+    }
 }
 
 function handleDeposit() {
     const toAccount = currentUser;
     const amount = parseFloat(document.getElementById('damount').value);
-
     fetchDepositData(toAccount, amount);
 }
 
-function fetchDepositData(toAccount, amount) {
-    db.collection('userData')
-        .doc(toAccount)
-        .get()
-        .then((snapshot) => {
-            const userData = snapshot.data();
+async function fetchDepositData(toAccount, amount) {
 
-            // Add deposit amount to recipient's balance
-            userData.balance += amount;
+    try {
+        var currentDate = new Date();
 
-            // Update transaction history for deposit
-            const depositDetails = `Deposited $${amount} to ${toAccount}`;
-            userData.transactionHistory.push(depositDetails);
+        // Getting the current year, month, and day
+        var year = currentDate.getFullYear();
+        var month = currentDate.getMonth() + 1;
+        var day = currentDate.getDate();
 
-            // Update Firestore document for recipient
-            db.collection('userData')
-                .doc(toAccount)
-                .update(userData)
-                .then(() => {
-                    console.log('Deposit successful');
-                    // Handle successful deposit
-                })
-                .catch((error) => {
-                    console.error('Error updating Firestore:', error);
-                    // Handle Firestore update failure
-                });
-        })
-        .catch((error) => {
-            console.error('Error fetching data:', error);
-            // Handle errors here
+        // Formatting the date as a string
+        var formattedDate = year + '-' + month + '-' + day;
+
+        const userData = db.collection("userData");
+        const userDoc = await userData.get(toAccount.uid);
+
+        // Updating balance
+        let balance2 = userDoc.data()['balance'];
+        balance2 += amount;
+
+        // Updating transaction hisory
+        let transHistory = userDoc.daata()['transactionHistory'];
+        transHistory.set(formattedDate, amount)
+
+        userDoc.update({ // Updating users current balance
+            balance: balance2,
+            transactionHistory: transHistory
         });
+
+    } catch (error) {
+        console.error("Error depositing:", error);
+    }
+
 }
 
 // Add event listeners to the submit buttons

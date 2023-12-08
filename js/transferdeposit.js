@@ -73,7 +73,6 @@ async function handleTransfer() {
 }
 
 async function fetchTransferData(fromAccount, toAccount, amount) {
-    let accounts = [fromAccount, toAccount];
     var currentDate = new Date();
 
     // Getting the current year, month, and day
@@ -84,9 +83,10 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
     // Formatting the date as a string
     var formattedDate = year + '-' + month + '-' + day;
 
-    for (let i = 0; i < accounts.length; i++) {
-        let currentAccount = accounts[i];
+    for (let i = 0; i < 2; i++) {
+        let currentAccount = toAccount;
         if (i % 2 == 0) {
+            currentAccount = fromAccount;
             amount = -amount;
         }
 

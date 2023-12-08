@@ -50,9 +50,21 @@ function createOptionElement(cardNumber) {
     return option;
 }
 
-function handleTransfer() {
+async function handleTransfer() {
     const fromAccount = currentUser; // Assuming currentUser holds the sender's account number
-    const toAccount = document.getElementById('tto').value;
+    const toCardNumber = document.getElementById('tto').value;
+    let toAccount;
+    try {
+        // Getting collection and user from card number
+        const userCards = db.collection("userCard");
+        const cardDoc = await userCards.get(toCardNumber);
+
+        let userId = cardDoc.data()['UserId'];
+        toAccount = firebase.auth().getUser(userId);
+
+    } catch (error) {
+        console.log("Error fetching other account", error);
+    }
     const amount = parseFloat(document.getElementById('tamount').value);
 
     fetchTransferData(fromAccount, toAccount, amount);

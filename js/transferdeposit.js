@@ -76,12 +76,20 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
     var currentDate = new Date();
 
     // Getting the current year, month, and day
-    /*var year = currentDate.getFullYear();
+    var year = currentDate.getFullYear();
     var month = currentDate.getMonth() + 1;
     var day = currentDate.getDate();
 
     // Formatting the date as a string
-    var formattedDate = year + '-' + month + '-' + day;*/
+    var formattedDate = year + '-' + month + '-' + day;
+
+    // Get current time components
+    var hours = currentDate.getHours();
+    var minutes = currentDate.getMinutes();
+    var seconds = currentDate.getSeconds();
+
+    // Append time to the formatted date
+    formattedDate += ' ' + hours + ':' + minutes + ':' + seconds;
 
     for (let i = 0; i < 2; i++) {
         let currentAccount = toAccount;
@@ -101,7 +109,7 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
 
             // Updating transaction history
             const transHistory = userDoc.data()['transactionHistory'] || {};
-            const newTransHistory = {...transHistory, [currentDate]: amount};
+            const newTransHistory = {...transHistory, [formattedDate]: amount};
 
             await userDoc.ref.update({
                 balance: balance2,
@@ -125,13 +133,22 @@ async function fetchDepositData(toAccount, amount) {
     try {
         var currentDate = new Date();
 
-        /*// Getting the current year, month, and day
+        // Getting the current year, month, and day
         var year = currentDate.getFullYear();
         var month = currentDate.getMonth() + 1;
         var day = currentDate.getDate();
 
         // Formatting the date as a string
-        var formattedDate = year + '-' + month + '-' + day;*/
+        var formattedDate = year + '-' + month + '-' + day;
+
+        // Get current time components
+        var hours = currentDate.getHours();
+        var minutes = currentDate.getMinutes();
+        var seconds = currentDate.getSeconds();
+
+        // Append time to the formatted date
+        formattedDate += ' ' + hours + ':' + minutes + ':' + seconds;
+
         
         const userData = db.collection("userData");
         const document = userData.doc(toAccount.uid);
@@ -142,7 +159,7 @@ async function fetchDepositData(toAccount, amount) {
 
             // Updating transaction history
             const transHistory = userDoc.data()['transactionHistory'] || {};
-            const newTransHistory = {...transHistory, [currentDate]: amount};
+            const newTransHistory = {...transHistory, [formattedDate]: amount};
 
             await userDoc.ref.update({
                 balance: balance2,

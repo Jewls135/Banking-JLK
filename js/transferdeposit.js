@@ -99,8 +99,7 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
 
             // Updating transaction hisory
             let transHistory = userDoc.data()['transactionHistory'];
-            console.log(typeof(transHistory));
-            transHistory.set(formattedDate, amount);
+            transHistory[formattedDate] = amount;
 
             userDoc.update({ // Updating users current balance
                 balance: balance2,

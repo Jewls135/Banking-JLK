@@ -142,13 +142,13 @@ async function fetchDepositData(toAccount, amount) {
             // Updating balance
             let balance = userDoc.data().balance + amount;
 
-            // Updating transaction history
-            let transactionHistory = { ...userDoc.data().transactionHistory };
-            transactionHistory[formattedDate] = amount;
+            // Updating transaction hisory
+            let transHistory = userDoc.data()['transactionHistory'];
+            transHistory[formattedDate] = amount;
 
-            await userDoc.ref.update({
+            await userDoc.update({ // Updating users current balance
                 balance: balance,
-                transactionHistory: transactionHistory
+                transactionHistory: transHistory
             });
 
             console.log("Deposit successful");

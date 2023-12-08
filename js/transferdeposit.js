@@ -60,7 +60,7 @@ async function handleTransfer() {
         const cardDoc = await userCards.get(toCardNumber);
 
         let userId = cardDoc.data()['UserId'];
-        toAccount = firebase.auth().getUser(userId);
+        toAccount = await firebase.auth().getUser(userId);
 
     } catch (error) {
         console.log("Error fetching other account", error);

@@ -74,21 +74,18 @@ async function handleTransfer() {
 
 async function fetchTransferData(fromAccount, toAccount, amount) {
     var currentDate = new Date();
-
-    // Getting the current year, month, and day
     var year = currentDate.getFullYear();
-    var month = currentDate.getMonth() + 1;
-    var day = currentDate.getDate();
+    var month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+    var day = currentDate.getDate().toString().padStart(2, '0');
 
-    // Formatting the date as a string
+
     var formattedDate = year + '-' + month + '-' + day;
 
-    // Get current time components
-    var hours = currentDate.getHours();
-    var minutes = currentDate.getMinutes();
-    var seconds = currentDate.getSeconds();
+    var hours = currentDate.getHours().toString().padStart(2, '0');
+    var minutes = currentDate.getMinutes().toString().padStart(2, '0');
+    var seconds = currentDate.getSeconds().toString().padStart(2, '0');
 
-    // Append time to the formatted date
+    // Appendending time to the formatted date
     formattedDate += ' ' + hours + ':' + minutes + ':' + seconds;
 
     for (let i = 0; i < 2; i++) {
@@ -109,7 +106,7 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
 
             // Updating transaction history
             const transHistory = userDoc.data()['transactionHistory'] || {};
-            const newTransHistory = {...transHistory, [formattedDate]: amount};
+            const newTransHistory = { ...transHistory, [formattedDate]: amount };
 
             await userDoc.ref.update({
                 balance: balance2,
@@ -132,44 +129,36 @@ async function fetchDepositData(toAccount, amount) {
 
     try {
         var currentDate = new Date();
-
-        // Getting the current year, month, and day
         var year = currentDate.getFullYear();
-        var month = currentDate.getMonth() + 1;
-        var day = currentDate.getDate();
+        var month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+        var day = currentDate.getDate().toString().padStart(2, '0');
 
-        // Formatting the date as a string
+
         var formattedDate = year + '-' + month + '-' + day;
 
-        // Get current time components
-        var hours = currentDate.getHours();
-        var minutes = currentDate.getMinutes();
-        var seconds = currentDate.getSeconds();
+        var hours = currentDate.getHours().toString().padStart(2, '0');
+        var minutes = currentDate.getMinutes().toString().padStart(2, '0');
+        var seconds = currentDate.getSeconds().toString().padStart(2, '0');
 
-        // Append time to the formatted date
+        // Appendending time to the formatted date
         formattedDate += ' ' + hours + ':' + minutes + ':' + seconds;
 
-        
         const userData = db.collection("userData");
         const document = userData.doc(toAccount.uid);
         const userDoc = await document.get();
-        if (userDoc.exists) {          
-            // Updating balance
-            let balance2 = userDoc.data().balance + amount;
 
-            // Updating transaction history
-            const transHistory = userDoc.data()['transactionHistory'] || {};
-            const newTransHistory = {...transHistory, [formattedDate]: amount};
+        let balance2 = userDoc.data().balance + amount;
 
-            await userDoc.ref.update({
-                balance: balance2,
-                transactionHistory: newTransHistory,
-            });
+        // Updating transaction history
+        const transHistory = userDoc.data()['transactionHistory'] || {};
+        const newTransHistory = { ...transHistory, [formattedDate]: amount };
 
-            console.log("Deposit successful");
-        } else {
-            console.error("Document does not exist for UID:", toAccount.uid);
-        }
+        await userDoc.ref.update({
+            balance: balance2,
+            transactionHistory: newTransHistory,
+        });
+
+        console.log("Deposit successful");
     } catch (error) {
         console.error("Error depositing:", error);
     }

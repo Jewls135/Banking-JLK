@@ -76,12 +76,12 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
     var currentDate = new Date();
 
     // Getting the current year, month, and day
-    var year = currentDate.getFullYear();
+    /*var year = currentDate.getFullYear();
     var month = currentDate.getMonth() + 1;
     var day = currentDate.getDate();
 
     // Formatting the date as a string
-    var formattedDate = year + '-' + month + '-' + day;
+    var formattedDate = year + '-' + month + '-' + day;*/
 
     for (let i = 0; i < 2; i++) {
         let currentAccount = toAccount;
@@ -101,9 +101,7 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
 
             // Updating transaction history
             const transHistory = userDoc.data()['transactionHistory'] || {};
-            const newTransHistory = {...transHistory,
-                [formattedDate]: transHistory[formattedDate] ? transHistory[formattedDate] + amount : amount
-            };
+            const newTransHistory = {...transHistory, [currentDate]: amount};
 
             await userDoc.ref.update({
                 balance: balance2,
@@ -127,13 +125,13 @@ async function fetchDepositData(toAccount, amount) {
     try {
         var currentDate = new Date();
 
-        // Getting the current year, month, and day
+        /*// Getting the current year, month, and day
         var year = currentDate.getFullYear();
         var month = currentDate.getMonth() + 1;
         var day = currentDate.getDate();
 
         // Formatting the date as a string
-        var formattedDate = year + '-' + month + '-' + day;
+        var formattedDate = year + '-' + month + '-' + day;*/
         
         const userData = db.collection("userData");
         const document = userData.doc(toAccount.uid);
@@ -144,9 +142,7 @@ async function fetchDepositData(toAccount, amount) {
 
             // Updating transaction history
             const transHistory = userDoc.data()['transactionHistory'] || {};
-            const newTransHistory = {...transHistory,
-                [formattedDate]: transHistory[formattedDate] ? transHistory[formattedDate] + amount : amount
-            };
+            const newTransHistory = {...transHistory, [currentDate]: amount};
 
             await userDoc.ref.update({
                 balance: balance2,

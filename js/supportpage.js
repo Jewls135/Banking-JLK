@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Save ticket information to Firestore
     db.collection('tickets').add({
+      UserID: currentuser.uid,
       subject: subject,
       message: message,
       timestamp: firebase.firestore.FieldValue.serverTimestamp()

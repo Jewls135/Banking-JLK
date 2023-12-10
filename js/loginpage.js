@@ -38,7 +38,8 @@ async function generateCardNumber(userId) {
     try {
         const userCards = db.collection("userCard");
         const existingDoc = userCards.doc("existingCards");
-
+        const userDoc = db.collection("userData").doc(userId);
+        
         const ds = await existingDoc.get();
         let numbers = ds.data()['numbers'];
 
@@ -53,8 +54,13 @@ async function generateCardNumber(userId) {
             numbers: numbers
         });
 
+        await userDoc.update({
+            cardNumber: randomNumber
+        });
+
         await userCards.doc(randomNumber).set({
             UserID: userId
+
         });
         return true;
     } catch (error) {
@@ -97,6 +103,7 @@ $('#google-button').click(function () {
                 email: user.email,
                 balance: 0,
                 transactionHistory: {},
+                
             }).then(() => {
                 console.log("User collection created");
                 generateUniqueCard(user.uid).then(() => { // Generating credit card

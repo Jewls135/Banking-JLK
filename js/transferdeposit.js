@@ -21,18 +21,19 @@ firebase.auth().onAuthStateChanged(function (user) {
         currentUser = user;
         // Set the 'from' option to display the user's card number in the Transfer Form
         const fromOption = document.getElementById('fromOption');
-        fromOption.textContent = `Debit Card ${user.uid}`; // Display part of the user's ID
-
+      
         // Get all card numbers except the user's card number and populate the 'to' options in the Transfer Form
         const ttoSelect = document.getElementById('tto');
         db.collection('userCard').get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 const cardNumber = doc.id;
-
-                if (cardNumber != "existingCards" && cardNumber !== user.uid) { // Exclude the user's own card number
+                
+                if (cardNumber != "existingCards" && doc.data().UserID != user.uid) { // Exclude the user's own card number
                     const option = createOptionElement(cardNumber);
                     ttoSelect.appendChild(option);
-                }
+                } else if(doc.data().UserID == user.uid){
+                    fromOption.textContent = `Debit Card ${cardNumber}`; // Display part of the user's ID
+                } 
             });
         }).catch((error) => {
             console.error('Error fetching card numbers:', error);
@@ -45,6 +46,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 });
 
 function createOptionElement(cardNumber) {
+    
     const option = document.createElement('option');
     option.value = cardNumber;
     option.textContent = `Debit Card ${cardNumber}`; // Display part of the card number

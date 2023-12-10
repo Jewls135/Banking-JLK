@@ -23,25 +23,7 @@ firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
     currentUser = user;
 
-    const userCardRef = db.collection('userCard').doc(currentUser.uid);
-
-    userCardRef.get().then((cardDoc) => {
-      if (cardDoc.exists) {
-        const userId = cardDoc.id; // Using document ID as UserID
-
-        if (userId) {
-          // Continue with the rest of your code to retrieve and display the card number
-          const cardNumber = cardDoc.id; // Get the card number from the document ID
-          document.getElementById('cardNumber').value = cardNumber;
-        } else {
-          console.log('No UserID found in userCard for this user!');
-        }
-      } else {
-        console.log('No card document found for this user!');
-      }
-    }).catch((cardError) => {
-      handleError(cardError);
-    });
+    
 
     const userDataRef = db.collection('userData').doc(currentUser.uid);
 
@@ -50,23 +32,36 @@ firebase.auth().onAuthStateChanged(function (user) {
         const userData = doc.data();
 
         const transactionHistory = userData.transactionHistory || []; // Ensure it's an array
-        const currentBalance = userData.balance || 0;
+        const currentBalance = userData.balance;
+        const cardNumber = userData.cardNumber;
 
+        document.getElementById('cardNumber').value = cardNumber; // Display the current balance
         document.getElementById('balance').value = currentBalance; // Display the current balance
 
         const table = document.getElementById('transactionTable');
 
-        // Loop through transactionHistory map and populate the table
-        for (const [key, value] of Object.entries(transactionHistory)) {
+        // Convert transactionHistory map to an array of objects
+        const transactionArray = Object.entries(transactionHistory).map(([date, amount]) => ({ date, amount }));
+
+        // Sort the array by date
+        transactionArray.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        let index = 0;
+
+        // Loop through the sorted array and populate the table
+        for (const transaction of transactionArray) {
           const row = table.insertRow(-1);
           const cellDate = row.insertCell(0);
-          const cellType = row.insertCell(1);
-          const cellAmount = row.insertCell(2);
+          const cellAmount = row.insertCell(1);
 
           // Accessing field (date), type, and value fields from each transaction object
-          cellDate.innerHTML = key || 'Unknown Date'; // Display the date
-          cellType.innerHTML = value >= 0 ? 'Deposit' : 'Withdrawal'; // Display the type
-          cellAmount.innerHTML = Math.abs(value) || 'N/A'; // Display the absolute value as the amount
+          cellDate.innerHTML = transaction.date || 'Unknown Date'; // Display the date
+          
+          cellAmount.innerHTML = Math.abs(transaction.amount) || 'N/A'; // Display the absolute value as the amount
+          index++;
+          if (index==5){
+            break;
+          }
         }
 
       } else {
@@ -75,6 +70,8 @@ firebase.auth().onAuthStateChanged(function (user) {
     }).catch((error) => {
       handleError(error);
     });
+
+
 
   } else {
     console.log("User is not logged in");

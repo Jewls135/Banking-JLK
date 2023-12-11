@@ -71,7 +71,7 @@ async function handleTransfer() {
     }
     const amount = parseFloat(document.getElementById('tamount').value);
     if(amount <= 0){
-        window.alert("Can not transfer 0 or negative dollars.");
+        window.alert("Can not transfer or deposit 0 or negative dollars.");
         return;
     }
     fetchTransferData(fromAccount, toAccount, amount);
@@ -118,8 +118,12 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
                 transactionHistory: newTransHistory,
             });
 
+            window.alert("Sucessfully transferred, $" + amount);
+            $('#transferFormObj')[0].reset();
+
         } catch (error) {
-            console.error("Error depositing:", error);
+            window.alert("Error transfering: ", error)
+            console.error("Error transfering: ", error);
         }
     }
 }
@@ -128,7 +132,7 @@ function handleDeposit() {
     const toAccount = currentUser;
     const amount = parseFloat(document.getElementById('damount').value);
     if(amount <= 0){
-        window.alert("Can not transfer 0 or negative dollars.");
+        window.alert("Can not transfer or deposit 0 or negative dollars.");
         return;
     }
     fetchDepositData(toAccount, amount);
@@ -168,7 +172,10 @@ async function fetchDepositData(toAccount, amount) {
         });
 
         console.log("Deposit successful");
+        window.alert("Sucessfully deposited, $" + amount);
+        $('#depositFormObj')[0].reset();
     } catch (error) {
+        window.alert("Error depositing:", error);
         console.error("Error depositing:", error);
     }
 

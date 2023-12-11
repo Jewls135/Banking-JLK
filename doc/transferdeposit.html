@@ -27,8 +27,8 @@
             <!-- Transfer and Deposit -->
             <div class="transfer">
                 <!-- Transfer Title, clicking makes the form visible-->
-                <h2 onclick="toggleForm('transferForm')">Transfer</h2>
-                <div id="transferForm" style="display: none;">
+                <button>Transfer</button>
+                <div id="transferForm">
                     <form>
                         <!-- From -->
                         <label for="from">From</label>
@@ -58,8 +58,8 @@
             </div>
             <div class="deposit">
                 <!-- Deposit Title, clicking makes the form visible-->
-                <h2 onclick="toggleForm('depositForm')">Deposit</h2>
-                <div id="depositForm" style="display: none;">
+                <button>Deposit</button>
+                <div id="depositForm">
                     <form>
                         <!-- To -->
                         <label for="dto">To</label>
@@ -72,8 +72,10 @@
                         <!-- Amount -->
                         <label for="damount">Amount</label>
                         <br>
-                        <input type="number" id="damount" name="damount" min="1" max="1000000">
+                        <input class = "input-text" type="number" id="damount" name="damount" min="1" max="1000000">
                         <br>
+                        <!-- Cancel -->
+                        <input type="reset" id="cancel" value="Cancel">
                         <!-- Submit -->
                         <input type="submit" id="dsubmit" value="Submit">
                     </form>

@@ -1,5 +1,63 @@
-/*Transfer and Deposit CSS*/
+/* Transfer and Deposit CSS */
 /* Add space between the transfer and deposit classes */
-.transfer, .deposit{
-    margin: 40px;
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.transfer,
+.deposit {
+    margin-top: 20px;
+}
+
+#transferForm,
+#depositForm {
+    position: relative;
+    width: 400px;
+}
+
+#depositForm {
+    margin-bottom: 40px;
+}
+
+form {
+    max-width: 400px; /* Set a maximum width for the form content */
+    margin-top: 20px;
+    border: 1px solid #000; /* Black border */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+label {
+    font-weight: bold;
+}
+
+select,
+input {
+    width: calc(100% - 20px); 
+    text-align: center;
+    font-size: 1.5em;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    border: 1px solid #000; 
+    border-radius: 5px;
+}
+
+button {
+    background-color: #fff;
+    border: 1px solid #000; /* Black border */
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    transition: background-color 0.1s ease;
+}
+
+button:hover {
+    background-color: #f0f0f0; /* Change background color on hover */
 }

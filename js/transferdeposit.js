@@ -70,7 +70,10 @@ async function handleTransfer() {
         console.log("Error fetching other account", error);
     }
     const amount = parseFloat(document.getElementById('tamount').value);
-
+    if(amount <= 0){
+        window.alert("Can not transfer 0 or negative dollars.");
+        return;
+    }
     fetchTransferData(fromAccount, toAccount, amount);
 }
 
@@ -124,6 +127,10 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
 function handleDeposit() {
     const toAccount = currentUser;
     const amount = parseFloat(document.getElementById('damount').value);
+    if(amount <= 0){
+        window.alert("Can not transfer 0 or negative dollars.");
+        return;
+    }
     fetchDepositData(toAccount, amount);
 }
 

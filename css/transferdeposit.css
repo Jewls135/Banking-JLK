@@ -58,6 +58,10 @@ button {
     transition: background-color 0.1s ease;
 }
 
-button:hover {
-    background-color: #f0f0f0; /* Change background color on hover */
+input:hover, button:hover {
+    background-color: #e4e4e4;
+}
+
+input:active, button:active {
+    background-color: #ffffff;
 }

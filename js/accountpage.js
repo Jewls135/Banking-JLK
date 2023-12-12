@@ -53,16 +53,14 @@ firebase.auth().onAuthStateChanged(function (user) {
           const row = table.insertRow(-1);
           const cellDate = row.insertCell(0);
           const cellAmount = row.insertCell(1);
-
-          // Accessing field (date), type, and value fields from each transaction object
-          cellDate.innerHTML = transaction.date || 'Unknown Date'; // Display the date
-          
-          cellAmount.innerHTML = Math.abs(transaction.amount) || 'N/A'; // Display the absolute value as the amount
-          
           if (transaction.amount > 0) {
+            cellAmount.innerHTML = '+ ' + absoluteAmount;
             cellAmount.classList.add('positive');
           } else if (transaction.amount < 0) {
+            cellAmount.innerHTML = '- ' + absoluteAmount;
             cellAmount.classList.add('red');
+          } else {
+            cellAmount.innerHTML = 'N/A';
           }
           index++;
           if (index==5){

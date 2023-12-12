@@ -88,7 +88,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 
   } else {
     console.log("User is not logged in");
-    //window.location.href = "loginpage.html";
+    window.location.href = "loginpage.html";
   }
 });
 

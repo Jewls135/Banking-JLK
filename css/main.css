@@ -11,6 +11,7 @@ body {
 html {
     background-color: rgb(235, 234, 234);
     background-image: url(../img//JLK\ logo\ \(1\).png);
+    font-family:Georgia, 'Times New Roman', Times, serif;
 }
 
 p { /* Default text for all p elements */

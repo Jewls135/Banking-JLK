@@ -46,7 +46,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 });
 
 function createOptionElement(cardNumber) {
-    
+
     const option = document.createElement('option');
     option.value = cardNumber;
     option.textContent = `Debit Card ${cardNumber}`; // Display part of the card number
@@ -63,9 +63,8 @@ async function handleTransfer() {
         const cardDocs = userCards.doc(toCardNumber);
         const cardDoc = await cardDocs.get();
 
-        let userId = cardDoc.data()['UserId'];
-        toAccount = await firebase.auth().getUser(userId);
-
+        toAccount = cardDoc.data()['UserID'];
+        console.log(toAccount)
     } catch (error) {
         console.log("Error fetching other account", error);
     }
@@ -95,14 +94,15 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
 
     for (let i = 0; i < 2; i++) {
         let currentAccount = toAccount;
+        let userid = currentAccount.uid
         if (i % 2 == 0) {
-            currentAccount = fromAccount;
+            currentAccount = fromAccount.uid;
             amount = -amount;
         }
 
         try {
             const userData = db.collection("userData");
-            const userDocs = userData.doc(currentAccount.uid);
+            const userDocs = userData.doc(userid);
             const userDoc = await userDocs.get();
 
             // Updating balance

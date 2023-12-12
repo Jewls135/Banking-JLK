@@ -94,11 +94,11 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
 
     for (let i = 0; i < 2; i++) {
         let userid = toAccount;
+        let newAmount = amount
         if (i % 2 == 0) {
             userid = fromAccount.uid;
-            amount = -amount;
+            newAmount = -amount;
         }
-        amount = -amount;
 
         try {
             const userData = db.collection("userData");
@@ -107,11 +107,11 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
 
             // Updating balance
             let balance2 = userDoc.data()['balance'];
-            balance2 += amount;
+            balance2 += newAmount;
 
             // Updating transaction history
             const transHistory = userDoc.data()['transactionHistory'] || {};
-            const newTransHistory = { ...transHistory, [formattedDate]: amount };
+            const newTransHistory = { ...transHistory, [formattedDate]: newAmount };
 
             await userDoc.ref.update({
                 balance: balance2,

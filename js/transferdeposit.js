@@ -93,10 +93,9 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
     formattedDate += ' ' + hours + ':' + minutes + ':' + seconds;
 
     for (let i = 0; i < 2; i++) {
-        let currentAccount = toAccount;
-        let userid = currentAccount.uid
+        let userid = toAccount;
         if (i % 2 == 0) {
-            currentAccount = fromAccount.uid;
+            userid = fromAccount.uid;
             amount = -amount;
         }
 

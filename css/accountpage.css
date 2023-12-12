@@ -67,6 +67,10 @@
 
 }
 
+input {
+    text-align: center;
+}
+
 input:hover,
 button:hover,
 #cancel:hover,

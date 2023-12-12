@@ -66,7 +66,7 @@ firebase.auth().onAuthStateChanged(function (user) {
             cellAmount.classList.add('positive');
           } else if (transaction.amount < 0) {
             cellAmount.innerHTML = '- ' + absoluteAmount;
-            cellAmount.classList.add('red');
+            cellAmount.classList.add('negative');
           } else {
             cellAmount.innerHTML = 'N/A';
           }

@@ -47,6 +47,7 @@ input {
     margin: auto;
     margin-top: 1%;
     width: 85%;
+    min-width: 550px;
     display: flex;
     align-items: center;
     border: 1px solid black;

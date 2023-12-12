@@ -1,17 +1,92 @@
 /* Account Page CSS */
 /* Account */
+
+.main-content {
+    width: 60%;
+    min-width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .account {
     text-align: center;
     margin-top: 20px;
+    width: 60%;
+    min-width: 300px;
+    border: 1px solid black;
+    border-radius: 5px;
 }
 
-/* Account Details */
-.account-details {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
+.account-header{
+    width: 60%;
+    min-width: 180px;
+    border: 1px solid black;
+    border-radius: 5px;
 }
-/* Detail */
+
+#transactionTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+#transactionTable th,
+#transactionTable td {
+    border: 1px solid black;
+    padding: 8px;
+}
+
+#transactionTable th {
+    background-color: #e4e4e4;
+}
+
+#transactionHistory h2 {
+    margin-bottom: 10px;
+}
+
 .detail {
-    margin: 10px; /* Adjust spacing between details */
+    padding: 20px;
+    margin: 20px;
+    margin-bottom: 40px;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+
+#history {
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 5px;
+    width: 40%;
+    min-width: 300px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    transition: background-color 0.1s ease;
+
+}
+
+input:hover,
+button:hover,
+#cancel:hover,
+#tsubmit:hover,
+#dsubmit:hover,
+#history:hover {
+    background-color: #e4e4e4;
+}
+
+
+input:active,
+button:active,
+#cancel:active,
+#tsubmit:active,
+#dsubmit:active,
+#history:active {
+    background-color: #ffffff;
+}
+
+.no-border{
+    border:none;
+    padding: 0;
 }

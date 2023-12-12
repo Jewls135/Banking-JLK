@@ -1,73 +1,73 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <!-- Linking CSS stylesheet and importing jQuery -->
-        <link rel="stylesheet" href="../css/main.css">
-        <link rel="stylesheet" href="../css/accountpage.css">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <!-- Metadata -->
-        <title>Account Page</title>
-        <meta charset="utf-8"/>
-        <meta name="author" content="JLK">
-        <meta name="description" content="The account page allows the user to view their account information.">
-    </head>
 
-    <body>
-        <div class="header-container box-shadow">
-            <h1>JLK Banking</h1>
-        </div>
-        <div class="navbar box-shadow">
-            <a href="homepage.html">Home</a>
-            <a href="accountpage.html">Account</a>
-            <a href="transferdeposit.html">Transfer/Deposit</a>
-            <a href="supportpage.html">Support</a>
-        </div>
-        <div class="main-content box-shadow">
-            <!-- Account -->
-            <div class="account">
-                <!-- Account Title -->
-                <h2>Account Information</h2>
-                <!-- Account Form -->
-                <form>
-                    <!-- Account Details -->
-                    <div class="account-details">
-                        <!-- User's Name -->
-                        <div class="detail">
-                            <label for="cardNumber">Card Number: </label>
-                            <input type="text" id="cardNumber" name="cardNumber" value=loading... readonly>
-                        </div>
-                        <!-- Account Balance -->
-                        <div class="detail">
-                            <label for="balance">Balance: </label>
-                            <input type="number" id="balance" name="balance" value=loading... readonly>
-                        </div>
-                        <!-- Transaction History -->
-                        <div class="detail">
-                            <input type="button" id="history" value="Transaction History" onclick="toggleForm('historyForm')">
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <!-- Transaction History Table -->
-            <div id="transactionHistory" style="display: none;">
-                <h2>Transaction History</h2>
-                <table id="transactionTable">
-                    <tr>
-                        <th>Date</th>
-                        
-                        <th>Amount</th>
-                    </tr>
-                    <!-- Table rows will be populated by JavaScript -->
-                </table>
-            </div>
-        </div>        
-        <div class = "footer">&copy;2023 JLK Banking. All rights reserved.</div>
-        <!-- The core Firebase JS SDK is always required and must be listed first -->
-	    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-compat.js"></script>
-	    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore-compat.js"></script>
-	    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-auth-compat.js"></script>
+<head>
+    <!-- Linking CSS stylesheet and importing jQuery -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/accountpage.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Metadata -->
+    <title>Account Page</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="JLK">
+    <meta name="description" content="The account page allows the user to view their account information.">
+</head>
 
-        <!-- Linking javascript -->
-        <script src = "../js/accountpage.js"></script>
-    </body>
+<body>
+    <div class="header-container box-shadow">
+        <h1>JLK Banking</h1>
+    </div>
+    <div class="navbar box-shadow">
+        <a href="homepage.html">Home</a>
+        <a href="accountpage.html">Account</a>
+        <a href="transferdeposit.html">Transfer/Deposit</a>
+        <a href="supportpage.html">Support</a>
+    </div>
+    <div class="main-content box-shadow">
+        <!-- Account -->
+        <div class="account box-shadow">
+            <!-- Account Title -->
+            <!-- Account Form -->
+            <!-- Account Details -->
+            <div class="account-details">
+                <!-- User's Name -->
+                <div class="detail no-border ">
+                    <h2>Account Information</h2>
+                </div>
+                <div class="detail box-shadow">
+                    <p>Card Number</p>
+                    <input type="text" id="cardNumber" name="cardNumber" value=loading... readonly>
+                </div>
+                <!-- Account Balance -->
+                <div class="detail box-shadow">
+                    <p>Balance</p>
+                    <input type="number" id="balance" name="balance" value=loading... readonly>
+                </div>
+            </div>
+        </div>
+        <input type="button" id="history" value="Transaction History" onclick="toggleForm('historyForm')">
+        <!-- Transaction History -->
+        <!-- Transaction History Table -->
+        <div id="transactionHistory" style="display: none;">
+            <h2>Transaction History</h2>
+            <table id="transactionTable">
+                <tr>
+                    <th>Date</th>
+
+                    <th>Amount</th>
+                </tr>
+                <!-- Table rows will be populated by JavaScript -->
+            </table>
+        </div>
+    </div>
+    <div class="footer">&copy;2023 JLK Banking. All rights reserved.</div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-auth-compat.js"></script>
+
+    <!-- Linking javascript -->
+    <script src="../js/accountpage.js"></script>
+</body>
+
 </html>

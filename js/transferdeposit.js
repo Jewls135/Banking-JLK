@@ -191,7 +191,8 @@ document.getElementById('dsubmit').addEventListener('click', function (event) {
     handleDeposit(); // Call the function to handle deposit
 });
 
-$('.signOut').click(function () {
+$('.sign-out').click(function () {
+    console.log("Sign out clicked!");
     firebase.auth().signOut().then(function () {
   
       console.log('Signed Out');
@@ -199,5 +200,4 @@ $('.signOut').click(function () {
     }).catch((error) => {
       console.error('Sign Out Error', error);
     });
-  
-  });
+});

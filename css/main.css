@@ -11,22 +11,18 @@ body {
 html {
     background-color: rgb(235, 234, 234);
     background-image: url(../img//JLK\ logo\ \(1\).png);
-    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-family:'Times New Roman', Times, serif
 }
 
-p { /* Default text for all p elements */
-    font-family:Georgia, 'Times New Roman', Times, serif;
+p { 
     font-size: 1.1em;
     line-height: 1.2;
 }
 
-h1 {
-    font-family:Georgia, 'Times New Roman', Times, serif;
-}
+
 
 input {
     background-color: white;
-    font-family:Georgia, 'Times New Roman', Times, serif;
 }
 
 /* Header */

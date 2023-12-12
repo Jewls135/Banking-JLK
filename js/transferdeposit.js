@@ -98,6 +98,7 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
             userid = fromAccount.uid;
             amount = -amount;
         }
+        amount = -amount;
 
         try {
             const userData = db.collection("userData");

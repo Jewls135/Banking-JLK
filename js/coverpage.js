@@ -26,3 +26,14 @@ firebase.auth().onAuthStateChanged(function (user) { // Checking if user is logg
         window.location.href = "loginpage.html"
     }
 });
+
+$('.signOut').click(function () {
+    firebase.auth().signOut().then(function () {
+  
+      console.log('Signed Out');
+  
+    }).catch((error) => {
+      console.error('Sign Out Error', error);
+    });
+  
+  });

@@ -23,7 +23,7 @@ firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
     currentUser = user;
 
-    
+
 
     const userDataRef = db.collection('userData').doc(currentUser.uid);
 
@@ -53,13 +53,13 @@ firebase.auth().onAuthStateChanged(function (user) {
           const row = table.insertRow(-1);
           const cellDate = row.insertCell(0);
           const cellAmount = row.insertCell(1);
-        
+
           // Accessing field (date), type, and value fields from each transaction object
           cellDate.innerHTML = transaction.date || 'Unknown Date'; // Display the date
-        
+
           // Display the absolute value as the amount
           const absoluteAmount = Math.abs(transaction.amount);
-          
+
           // Determine the sign of the transaction amount and add the appropriate class and sign
           if (transaction.amount > 0) {
             cellAmount.innerHTML = '+ ' + absoluteAmount;
@@ -70,7 +70,7 @@ firebase.auth().onAuthStateChanged(function (user) {
           } else {
             cellAmount.innerHTML = 'N/A';
           }
-        
+
           index++;
           if (index == 5) {
             break;
@@ -88,7 +88,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 
   } else {
     console.log("User is not logged in");
-    window.location.href = "loginpage.html";
+    //window.location.href = "loginpage.html";
   }
 });
 
@@ -112,4 +112,15 @@ document.getElementById('history').addEventListener('click', function () {
   } else {
     transactionHistoryDiv.style.display = 'none';
   }
+});
+
+$('.signOut').click(function () {
+  firebase.auth().signOut().then(function () {
+
+    console.log('Signed Out');
+
+  }).catch((error) => {
+    console.error('Sign Out Error', error);
+  });
+
 });

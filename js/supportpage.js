@@ -55,3 +55,14 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   });
 });
+
+$('.signOut').click(function () {
+  firebase.auth().signOut().then(function () {
+
+    console.log('Signed Out');
+
+  }).catch((error) => {
+    console.error('Sign Out Error', error);
+  });
+
+});

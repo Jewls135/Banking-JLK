@@ -41,6 +41,27 @@ input {
     text-align: center;
 }
 
+.sign-out{
+    position: fixed;
+    bottom: 25px;
+    right: 5px;
+    padding: 5px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor:grabbing;
+}
+
+.sign-out:hover{
+    background-color: #e4e4e4;
+}
+
+.sign-out:active{
+    background-color: #ffffff;
+}
 
 /* Navbar */
 .navbar {

@@ -190,3 +190,14 @@ document.getElementById('dsubmit').addEventListener('click', function (event) {
     event.preventDefault(); // Prevent form submission
     handleDeposit(); // Call the function to handle deposit
 });
+
+$('.signOut').click(function () {
+    firebase.auth().signOut().then(function () {
+  
+      console.log('Signed Out');
+  
+    }).catch((error) => {
+      console.error('Sign Out Error', error);
+    });
+  
+  });

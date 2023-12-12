@@ -19,7 +19,7 @@
     border-radius: 5px;
 }
 
-.account-header{
+.account-header {
     width: 60%;
     min-width: 180px;
     border: 1px solid black;
@@ -49,9 +49,7 @@
 .detail {
     padding: 20px;
     margin: 20px;
-    margin-bottom: 40px;
-    border: 1px solid #000;
-    border-radius: 5px;
+    margin-bottom: 20px;
 }
 
 #history {
@@ -69,6 +67,22 @@
 
 input {
     text-align: center;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 40px;
+    width: 60%;
+    font-size: 1.5em;
+    transition: background-color 0.1s ease;
+}
+
+.transactionHistory{
+    text-align: center;
+    width: 60%;
+    min-width: 300px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 10px;
 }
 
 input:hover,
@@ -90,15 +104,15 @@ button:active,
     background-color: #ffffff;
 }
 
-.no-border{
-    border:none;
+.no-border {
+    border: none;
     padding: 0;
 }
 
-.positive{
-    color:rgb(4, 190, 4)
+.positive {
+    color: rgb(4, 190, 4)
 }
 
-.negative{
-    color:red;
+.negative {
+    color: red;
 }

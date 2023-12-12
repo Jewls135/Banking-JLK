@@ -41,7 +41,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     } else {
         // No user is signed in, redirect to login page
         console.log("User is not logged in");
-        window.location.href = "loginpage.html"
+        //window.location.href = "loginpage.html"
     }
 });
 
@@ -117,7 +117,6 @@ async function fetchTransferData(fromAccount, toAccount, amount) {
                 transactionHistory: newTransHistory,
             });
 
-            window.alert("Sucessfully transferred, $" + amount);
             $('#transferFormObj')[0].reset();
 
         } catch (error) {

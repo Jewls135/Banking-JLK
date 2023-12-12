@@ -31,15 +31,15 @@
             <!-- Account Details -->
             <div class="account-details">
                 <!-- User's Name -->
-                <div class="detail no-border ">
+                <div class="detail no-border">
                     <h2>Account Information</h2>
                 </div>
-                <div class="detail box-shadow">
+                <div class="detail">
                     <p>Card Number</p>
                     <input type="text" id="cardNumber" name="cardNumber" value=loading... readonly>
                 </div>
                 <!-- Account Balance -->
-                <div class="detail box-shadow">
+                <div class="detail">
                     <p>Balance</p>
                     <input type="number" id="balance" name="balance" value=loading... readonly>
                 </div>
@@ -48,7 +48,7 @@
         <input type="button" id="history" value="Transaction History" onclick="toggleForm('historyForm')">
         <!-- Transaction History -->
         <!-- Transaction History Table -->
-        <div id="transactionHistory" style="display: none;">
+        <div class = "transactionHistory box-shadow" id="transactionHistory" style="display: none;">
             <h2>Transaction History</h2>
             <table id="transactionTable">
                 <tr>

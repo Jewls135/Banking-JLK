@@ -30,6 +30,7 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #transactionTable th,
@@ -83,6 +84,7 @@ input {
     border: 1px solid #000;
     border-radius: 5px;
     padding: 10px;
+    margin-bottom: 20px;
 }
 
 input:hover,

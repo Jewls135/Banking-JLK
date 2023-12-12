@@ -62,10 +62,10 @@ firebase.auth().onAuthStateChanged(function (user) {
           
           // Determine the sign of the transaction amount and add the appropriate class and sign
           if (transaction.amount > 0) {
-            cellAmount.innerHTML = '+' + absoluteAmount;
+            cellAmount.innerHTML = '+ ' + absoluteAmount;
             cellAmount.classList.add('positive');
           } else if (transaction.amount < 0) {
-            cellAmount.innerHTML = '-' + absoluteAmount;
+            cellAmount.innerHTML = '- ' + absoluteAmount;
             cellAmount.classList.add('red');
           } else {
             cellAmount.innerHTML = 'N/A';

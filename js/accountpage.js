@@ -58,6 +58,12 @@ firebase.auth().onAuthStateChanged(function (user) {
           cellDate.innerHTML = transaction.date || 'Unknown Date'; // Display the date
           
           cellAmount.innerHTML = Math.abs(transaction.amount) || 'N/A'; // Display the absolute value as the amount
+          
+          if (transaction.amount > 0) {
+            cellAmount.classList.add('positive');
+          } else if (transaction.amount < 0) {
+            cellAmount.classList.add('red');
+          }
           index++;
           if (index==5){
             break;

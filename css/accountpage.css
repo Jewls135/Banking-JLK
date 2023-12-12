@@ -90,3 +90,11 @@ button:active,
     border:none;
     padding: 0;
 }
+
+.positive{
+    color:rgb(4, 190, 4)
+}
+
+.negative{
+    color:red;
+}

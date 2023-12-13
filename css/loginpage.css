@@ -1,4 +1,12 @@
 /* CSS File used for index.html */
+.grid-container{
+    position:absolute;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-items:center;
+    
+}
+
 .main-content {
     margin-top: 20vh;
     width: 40%;
@@ -54,4 +62,29 @@ input:hover, button:hover {
 
 input:active, button:active {
     background-color: #ffffff;
+}
+.centered-div {
+    width: 17vw; 
+    margin-left: 75vw; 
+    border: 1px solid #000000; 
+    height:65vh;
+}
+
+#sp1{
+    position:absolute;   
+    transform:translate(0px,-75vh);
+}
+
+#sp2{
+    position:absolute;
+    transform:translate(-70vw,-75vh);
+}
+
+p{
+    padding:5px;
+    font-size: 20px;
+}
+
+.main-content p::first-letter {
+    font-size:35px;
 }

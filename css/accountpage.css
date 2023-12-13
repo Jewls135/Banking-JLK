@@ -2,8 +2,17 @@
 /* Account */
 
 .main-content {
-    width: 60%;
-    min-width: 450px;
+    width: 50%;
+    min-width: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-content2 {
+    width: 50%;
+    min-width: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -67,6 +76,34 @@
 
 }
 
+.sign-out{
+    background-color:#ff8f8f;
+    transition: 1.5s;
+}
+
+.centered-div {
+    width: 17vw; 
+    margin-left: 75vw; 
+    border: 1px solid #000000; 
+    height:50vh;
+}
+
+#sp1{
+    position:fixed;   
+    transform:translate(0px,-0vh); 
+    margin-left:6vw;
+}
+
+#cardNumber{
+    width:250px;
+}
+
+#sp2{
+    position:fixed;
+    margin-left:75.2vw;
+    transform:translate(0px,-0vh);
+}
+
 input {
     text-align: center;
     background-color: white;
@@ -78,8 +115,13 @@ input {
     transition: background-color 0.1s ease;
 }
 
-p {
-    font-size: 1.5em;
+p{
+    padding:5px;
+    font-size: 20px;
+}
+
+.main-content p::first-letter {
+    font-size:35px;
 }
 
 .transactionHistory{
@@ -109,6 +151,14 @@ button:active,
 #dsubmit:active,
 #history:active {
     background-color: #ffffff;
+}
+
+.navbar{
+    transition:1.5s;
+}
+
+.navbar:hover{
+    font-size:22px;
 }
 
 .no-border {

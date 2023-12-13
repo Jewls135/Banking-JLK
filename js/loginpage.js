@@ -28,7 +28,7 @@ $(document).ready(function () {
             currentuser = user;
             currentemail = user.email;
             console.log("User is logged in");
-            window.location.href = "accountpage.html"
+            window.location.href = "homepage.html"
         }
         console.log("User is not logged in");
     });
@@ -102,7 +102,7 @@ $('#google-button').click(function () {
             userCollection.get().then((doc) => {
                 if (doc.exists) {
                     console.log("User document already exists, redirecting");
-                    window.location = "accountpage.html";
+                    window.location = "homepage.html";
                 } else {
                     // Document doesn't exist, create a new one
                     userCollection.set({
@@ -113,7 +113,7 @@ $('#google-button').click(function () {
                     }).then(() => {
                         console.log("User collection created");
                         generateUniqueCard(user.uid).then(() => { // Generating credit card
-                            window.location = "accountpage.html";
+                            window.location = "homepage.html";
                         });
                         // Redirecting
                     }).catch((error) => {
@@ -176,7 +176,7 @@ $("#signupSubmit").click(function (e) {
             }).then(() => {
                 console.log("User collection created");
                 generateUniqueCard(user.uid).then(() => { // Generating credit card
-                    window.location = "accountpage.html";
+                    window.location = "homepage.html";
                 });
             }).catch((error) => {
                 console.error("Error creating user collection: ", error);

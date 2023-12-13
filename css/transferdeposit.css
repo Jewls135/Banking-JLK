@@ -62,6 +62,19 @@ button {
     transition: background-color 0.1s ease;
 }
 
+.sign-out{
+    background-color:#ff8f8f;
+    transition: 1.5s;
+}
+
+.navbar{
+    transition:1.5s;
+}
+
+.navbar:hover{
+    font-size:22px;
+}
+
 input:hover,
 button:hover,
 #cancel:hover,

@@ -20,12 +20,23 @@
     <div class = "sign-out box-shadow">
         <p>Sign Out</p>
     </div>
+    
     <div class="navbar box-shadow">
         <a href="homepage.html">Home</a>
         <a href="accountpage.html">Account</a>
         <a href="transferdeposit.html">Transfer/Deposit</a>
         <a href="supportpage.html">Support</a>
     </div>
+    <div class="centered-div main-content box-shadow" id="sp1"><p>This page is pulling
+        data from firebase that is related to your unique user ID. From this page,
+        you can see your current card number and balance.
+    </p></div>
+    
+    <div class="centered-div main-content box-shadow" id="sp2"><p>If you click the 
+        transaction button, you can view the latest five transactions related to 
+        your card. Green represents a deposit and red represents a withdrawl. 
+    </p></div>
+    
     <div class="main-content box-shadow">
         <!-- Account -->
         <div class="account box-shadow">
@@ -38,12 +49,12 @@
                     <h2>Account Information</h2>
                 </div>
                 <div class="detail">
-                    <p>Card Number</p>
+                    <h2>Card Number</h2>
                     <input type="text" id="cardNumber" name="cardNumber" value=loading... readonly>
                 </div>
                 <!-- Account Balance -->
                 <div class="detail">
-                    <p>Balance</p>
+                    <h2>Balance</h2>
                     <input type="number" id="balance" name="balance" value=loading... readonly>
                 </div>
             </div>
@@ -63,6 +74,8 @@
             </table>
         </div>
     </div>
+
+
     <div class="footer">&copy;2023 JLK Banking. All rights reserved.</div>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-compat.js"></script>

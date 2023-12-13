@@ -1,0 +1,47 @@
+/* Homepage CSS */
+/* Main Content */
+.main-content {
+    margin: auto;
+    margin-top: 1%;
+    width: 70vw;
+    height: 75vh;
+    display: flex;
+    flex-direction: column; /* Displaying elements vertically */
+    align-items: left; /* To center the content */
+    border: 1px solid black;
+    border-radius: 5px;
+    padding-left: 50px;
+    padding-right: 50px;
+    background-color: white;
+}
+
+.sign-out{
+    background-color:#ff8f8f;
+}
+
+p{
+    font-size:25px;
+}
+
+h2{
+    font-size:50px;
+}
+
+h3{
+    font-size:30px;
+    margin:5px;
+    padding-bottom:25px;
+}
+
+.main-content p::first-letter {
+    font-size:35px;
+}
+
+#navLog{
+    margin-top:10px;
+    font-size:25px;
+    display: flex;
+    justify-content: center; /* Align items horizontally at the center */
+    align-items: center; /* Align items vertically at the center */
+    height:40px;
+}

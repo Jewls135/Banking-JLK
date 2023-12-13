@@ -3,13 +3,44 @@
 .main-content {
     margin: auto;
     margin-top: 1%;
-    width: 85%;
+    width: 70vw;
+    height: 75vh;
     display: flex;
     flex-direction: column; /* Displaying elements vertically */
     align-items: center; /* To center the content */
     border: 1px solid black;
     border-radius: 5px;
-    padding: 5px;
+    padding-left: 50px;
+    padding-right: 50px;
     background-color: white;
 }
-/* ... (other styles) */
+
+.sign-out{
+    background-color:#ff8f8f;
+    transition: 1.5s;
+}
+
+p{
+    font-size:25px;
+}
+
+h2{
+    font-size:50px;
+}
+
+h3{
+    font-size:40px;
+    margin:5px;
+}
+
+.main-content p::first-letter {
+    font-size:35px;
+}
+
+.navbar{
+    transition:1.5s;
+}
+
+.navbar:hover{
+    font-size:22px;
+}

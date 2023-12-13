@@ -39,7 +39,7 @@ async function generateCardNumber(userId) {
         const userCards = db.collection("userCard");
         const existingDoc = userCards.doc("existingCards");
         const userDoc = db.collection("userData").doc(userId);
-        
+
         const ds = await existingDoc.get();
         let numbers = ds.data()['numbers'];
 
@@ -96,32 +96,37 @@ $('#google-button').click(function () {
         .then((result) => {
             // Signed in
             let user = result.user;
-            // Creating document under userData collection for specific user based on userId
             const userCollection = db.collection('userData').doc(user.uid);
-            userCollection.set({
-                username: user.email.split("@")[0],
-                email: user.email,
-                balance: 0,
-                transactionHistory: {},
-                
-            }).then(() => {
-                console.log("User collection created");
-                generateUniqueCard(user.uid).then(() => { // Generating credit card
+
+            // Check if the document exists
+            userCollection.get().then((doc) => {
+                if (doc.exists) {
+                    console.log("User document already exists, redirecting");
                     window.location = "accountpage.html";
-                });
-                // Redirecting
-            }).catch((error) => {
-                console.error("Error creating user collection: ", error);
+                } else {
+                    // Document doesn't exist, create a new one
+                    userCollection.set({
+                        username: user.email.split("@")[0],
+                        email: user.email,
+                        balance: 0,
+                        transactionHistory: {},
+                    }).then(() => {
+                        console.log("User collection created");
+                        generateUniqueCard(user.uid).then(() => { // Generating credit card
+                            window.location = "accountpage.html";
+                        });
+                        // Redirecting
+                    }).catch((error) => {
+                        console.error("Error creating user collection: ", error);
+                    });
+                }
             });
         }).catch((error) => {
             signingUp = false;
-            // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
-            // The email of the user's account used.
-            var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
+            console.log(error.code);
+            console.log(errorMessage);
         });
 });
 

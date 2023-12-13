@@ -24,7 +24,7 @@ firebase.auth().onAuthStateChanged(function (user) { // Checking if user is logg
     } else {
         // No user is signed in so we redirect them to the login page
         console.log("User is not logged in");
-        //window.location.href = "loginpage.html"
+        window.location.href = "loginpage.html"
     }
 });
 
